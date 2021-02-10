@@ -22,4 +22,33 @@ logRouter.route("/add").post((req, res, next) => {
 		.catch(err => res.status(400).json("Error: " + err));
 });
 
+logRouter
+	.route("/:id")
+	.get((req, res) => {
+		Log.findById(req.params.id)
+			.then(log => res.json(log))
+			.catch(err => res.status(400).json("Error: " + err));
+	})
+	.delete((req, res) => {
+		Log.findByIdAndDelete(req.params.id)
+			.then(log => res.json(log))
+			.catch(err => res.status(400).json("Error: " + err));
+	});
+
+logRouter.route("/update/:id").post((req, res) => {
+	Log.findById(req.params.id)
+		.then(log => {
+			log.description = req.body.description;
+			log.label = req.body.label;
+			log.duration = Number(req.body.duration);
+			log.date = Date.parse(req.body.date);
+			log.userId = req.body.userId;
+
+			log.save()
+				.then(log => res.json(log))
+				.catch(err => res.status(400).json("Error: " + err));
+		})
+		.catch(err => res.status(400).json("Error: " + err));
+});
+
 module.exports = logRouter;

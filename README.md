@@ -1,1 +1,1 @@
-# StudyTimeTracker
+# Study Time Log
