@@ -27,15 +27,66 @@ const Profile = () => {
 const StyledProfile = styled.div`
 	display: flex;
 	flex-direction: column;
-	align-items: space-between;
+	align-items: center;
 	justify-content: space-between;
 	height: 100%;
+	padding: 1rem 0.5rem;
 
 	.profile-info {
+		display: flex;
+		flex-direction: column;
+		align-items: center;
+		color: white;
+		text-shadow: 1px 1px 3px #303030;
+
 		img {
-			width: 300px;
-			height: auto;
+			width: 180px;
+			height: 180px;
 			object-fit: cover;
+			border-radius: 50%;
+			border: 1px solid #323232;
+		}
+
+		h2 {
+			margin-top: 0.5rem;
+			font-weight: 700;
+			font-size: 34px;
+			line-height: 58px;
+			letter-spacing: 0.03em;
+		}
+
+		.short-line {
+			width: 20%;
+			height: 2px;
+			background: #272727;
+			border-radius: 40px;
+			margin-bottom: 1rem;
+		}
+
+		h3 {
+			font-weight: 500;
+			font-size: 22px;
+			line-height: 20px;
+			letter-spacing: 0.03em;
+			margin-bottom: 0.7rem;
+		}
+
+		p {
+			width: 85%;
+			text-align: center;
+			font-size: 16px;
+			font-weight: 400;
+			line-height: 20px;
+			letter-spacing: 0.03em;
+		}
+	}
+
+	.account-info {
+		.edit-profile {
+		}
+		.sign-out {
+		}
+		p {
 		}
 	}
 `;

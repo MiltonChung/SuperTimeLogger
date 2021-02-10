@@ -4,7 +4,7 @@ const GlobalStyles = createGlobalStyle`
   * {
     margin: 0;
     padding: 0;
-    box-sizing: 0;
+    box-sizing: border-box;
   }
   html {
     &::-webkit-scrollbar {
@@ -21,10 +21,15 @@ const GlobalStyles = createGlobalStyle`
   body {
     font-family: 'Lato', sans-serif;
     min-height: 100vh;
+    min-width: 100vw;
+    background: linear-gradient(180deg, #59AFFF 0%, #5B00F0 100%);
+  }
+  #root {
+    min-height: 100vh;
+    min-width: 100vw;
     display: flex;
     justify-content: center;
     align-items: center;
-    background: linear-gradient(180deg, #59AFFF 0%, #5B00F0 100%);
   }
   
 `;
