@@ -1,0 +1,8 @@
+{
+    "username": "mewton22",
+    "password": "123",
+    "name": "Milton Chung",
+    "bio": "Hello world",
+    "title": "frontend dev"
+}
+
