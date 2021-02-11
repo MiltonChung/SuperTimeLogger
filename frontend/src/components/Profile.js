@@ -68,13 +68,18 @@ const Profile = ({ userAuth }) => {
 	return (
 		<StyledProfile>
 			<div className="profile-info">
-				{userAuth && (
+				{userAuth ? (
 					<>
 						<img src={dogImg} alt="dog" />
 						<h2>{userInfo.name}</h2>
 						<div className="short-line"></div>
 						<h3>{userInfo.title}</h3>
 						<p>{userInfo.bio}</p>
+					</>
+				) : (
+					<>
+						<h2>Study Time Log</h2>
+						<img src={dogImg} alt="dog" />
 					</>
 				)}
 			</div>
