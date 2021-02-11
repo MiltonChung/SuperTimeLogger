@@ -21,13 +21,13 @@ const Log = () => {
 			{logList.log.length !== 0
 				? logList.log.map(log => {
 						return (
-							<>
+							<div key={log._id}>
 								<p>description: {log.description}</p>
 								<p>label: {log.label}</p>
 								<p>date: {log.date}</p>
 								<p>duration: {log.duration}</p>
 								<br></br>
-							</>
+							</div>
 						);
 				  })
 				: ""}

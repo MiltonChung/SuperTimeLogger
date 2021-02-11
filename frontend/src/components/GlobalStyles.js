@@ -31,7 +31,26 @@ const GlobalStyles = createGlobalStyle`
     justify-content: center;
     align-items: center;
   }
-  
+  .login-modal {
+		position: absolute;
+		top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    width: 400px;
+    height: 400px;
+    background: white;
+    padding: 3rem;
+    border-radius: 10px;
+	}
+  .login-overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background: rgba(0,0,0,0.5);
+    box-shadow: 5px 5px 10px rgba(0,0,0,0.8);
+  }
 `;
 
 export default GlobalStyles;

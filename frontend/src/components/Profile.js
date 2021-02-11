@@ -1,8 +1,20 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import styled from "styled-components";
 import dogImg from "../img/dog.jpg";
+import { auth } from "../firebase";
+import axios from "axios";
 
-const Profile = () => {
+const Profile = ({ userAuth }) => {
+	// useEffect(() => {
+	// 	axios.get("http://localhost:5000/users/login");
+	// }, [])
+
+	const signOut = () => {
+		auth.signOut();
+	};
+
+	const editProfile = () => {};
+
 	return (
 		<StyledProfile>
 			<div className="profile-info">
@@ -15,11 +27,17 @@ const Profile = () => {
 					come to life.
 				</p>
 			</div>
-			<div className="account-info">
-				<button className="edit-profile">edit profile</button>
-				<button className="sign-out">sign out</button>
-				<p>Joined on: 2/10/2021</p>
-			</div>
+			{userAuth && (
+				<div className="account-info">
+					<button className="edit-profile" onClick={editProfile}>
+						edit profile
+					</button>
+					<button className="sign-out" onClick={signOut}>
+						sign out
+					</button>
+					<p>Joined on: 2/10/2021</p>
+				</div>
+			)}
 		</StyledProfile>
 	);
 };
