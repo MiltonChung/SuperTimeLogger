@@ -8,15 +8,16 @@ import ReactModal from "react-modal";
 const Profile = ({ userAuth }) => {
 	const [modalIsOpen, setIsOpen] = useState(false);
 	const [userInfo, setUserInfo] = useState({});
+	const [userEdit, setUserEdit] = useState({});
 
 	useEffect(async () => {
 		if (userAuth !== null) {
 			console.log("PROFILE: ", userAuth);
 			const result = await axios(`http://localhost:5000/users/${userAuth.uid}`);
 			await setUserInfo(result.data.user);
-			await console.log(userInfo);
+			await setUserEdit(result.data.user);
 		}
-	}, [userAuth]);
+	}, [userAuth, modalIsOpen]);
 
 	function openModal() {
 		setIsOpen(true);
@@ -28,6 +29,19 @@ const Profile = ({ userAuth }) => {
 
 	const signOut = () => {
 		auth.signOut();
+	};
+
+	const handleName = e => {
+		setUserEdit({ ...userEdit, name: e.target.value });
+	};
+	const handleTitle = e => {
+		setUserEdit({ ...userEdit, title: e.target.value });
+	};
+	const handleBio = e => {
+		setUserEdit({ ...userEdit, bio: e.target.value });
+	};
+	const handleEmail = e => {
+		setUserEdit({ ...userEdit, email: e.target.value });
 	};
 
 	const editProfile = async e => {
@@ -84,16 +98,16 @@ const Profile = ({ userAuth }) => {
 				<h3>Edit Profile</h3>
 				<form onSubmit={editProfile}>
 					<label htmlFor="fullname">Full Name</label>
-					<input type="text" name="fullname" id="fullname" />
+					<input type="text" name="fullname" id="fullname" value={userEdit.name} onChange={handleName} />
 
 					<label htmlFor="title">Title</label>
-					<input type="text" name="title" id="title" />
+					<input type="text" name="title" id="title" value={userEdit.title} onChange={handleTitle} />
 
 					<label htmlFor="bio">Bio</label>
-					<input type="text" name="bio" id="bio" />
+					<input type="text" name="bio" id="bio" value={userEdit.bio} onChange={handleBio} />
 
 					<label htmlFor="email">Email</label>
-					<input type="text" name="email" id="email" />
+					<input type="text" name="email" id="email" value={userEdit.email} onChange={handleEmail} />
 
 					<input type="submit" value="submit" />
 				</form>
