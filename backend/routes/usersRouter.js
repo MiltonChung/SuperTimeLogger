@@ -9,19 +9,20 @@ userRouter.route("/").get((req, res, next) => {
 		.catch(err => res.status(400).json("Error: " + err));
 });
 
-userRouter.route("/add").post((req, res) => {
+userRouter.route("/add").post((req, res, next) => {
+	console.log(req.body);
 	User.create({
 		userFirebaseUID: req.body.userFirebaseUID,
-		name: req.body.name,
-		bio: req.body.bio,
-		title: req.body.title,
+		email: req.body.email,
+		// bio: req.body.bio,
+		// title: req.body.title,
 	})
 		.then(user => {
 			res.statusCode = 200;
 			res.setHeader("Content-Type", "application/json");
 			res.json({ status: "Registration Successful!", user: user });
 		})
-		.catch(err => next(err));
+		.catch(err => res.status(400).json("Error: " + err));
 });
 
 userRouter.route("/:id").get((req, res) => {
@@ -42,6 +43,7 @@ userRouter.route("/update/:id").post((req, res) => {
 			user.name = req.body.name;
 			user.bio = req.body.bio;
 			user.title = req.body.title;
+			user.email = req.body.email;
 
 			user
 				.save()

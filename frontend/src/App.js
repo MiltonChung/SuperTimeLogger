@@ -17,10 +17,10 @@ const App = () => {
 	useEffect(() => {
 		auth.onAuthStateChanged(user => {
 			if (user) {
-				console.log("user logged in: ", user);
+				console.log("APP: user logged in: ");
 				setUserAuth(user);
 			} else {
-				console.log("user logged out");
+				console.log("APP: user logged out");
 				setUserAuth(null);
 			}
 		});

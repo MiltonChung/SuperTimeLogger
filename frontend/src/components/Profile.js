@@ -3,41 +3,101 @@ import styled from "styled-components";
 import dogImg from "../img/dog.jpg";
 import { auth } from "../firebase";
 import axios from "axios";
+import ReactModal from "react-modal";
 
 const Profile = ({ userAuth }) => {
-	// useEffect(() => {
-	// 	axios.get("http://localhost:5000/users/login");
-	// }, [])
+	const [modalIsOpen, setIsOpen] = useState(false);
+	const [userInfo, setUserInfo] = useState({});
+
+	useEffect(async () => {
+		if (userAuth !== null) {
+			console.log("PROFILE: ", userAuth);
+			const result = await axios(`http://localhost:5000/users/${userAuth.uid}`);
+			await setUserInfo(result.data.user);
+			await console.log(userInfo);
+		}
+	}, [userAuth]);
+
+	function openModal() {
+		setIsOpen(true);
+	}
+
+	function closeModal() {
+		setIsOpen(false);
+	}
 
 	const signOut = () => {
 		auth.signOut();
 	};
 
-	const editProfile = () => {};
+	const editProfile = async e => {
+		e.preventDefault();
+		const form = {
+			name: e.target[0].value,
+			title: e.target[1].value,
+			bio: e.target[2].value,
+			userFirebaseUID: userAuth.uid,
+			email: e.target[3].value,
+		};
+
+		try {
+			const update = await axios.post(`http://localhost:5000/users/update/${userAuth.uid}`, form);
+			const updateEmailRes = await auth.currentUser.updateEmail(form.email);
+			console.log("PROFILE update: ", update);
+			console.log("PROFILE updateEmailRes: ", updateEmailRes);
+			closeModal();
+		} catch (e) {
+			console.log(`Error updating user info: ${e}`);
+		}
+	};
 
 	return (
 		<StyledProfile>
 			<div className="profile-info">
-				<img src={dogImg} alt="dog" />
-				<h2>Milton Chung</h2>
-				<div className="short-line"></div>
-				<h3>Frontend Developer</h3>
-				<p>
-					I love making designs come to life. I love making designs come to life. I love making designs
-					come to life.
-				</p>
+				{userAuth && (
+					<>
+						<img src={dogImg} alt="dog" />
+						<h2>{userInfo.name}</h2>
+						<div className="short-line"></div>
+						<h3>{userInfo.title}</h3>
+						<p>{userInfo.bio}</p>
+					</>
+				)}
 			</div>
 			{userAuth && (
 				<div className="account-info">
-					<button className="edit-profile" onClick={editProfile}>
+					<button className="edit-profile" onClick={openModal}>
 						edit profile
 					</button>
 					<button className="sign-out" onClick={signOut}>
 						sign out
 					</button>
-					<p>Joined on: 2/10/2021</p>
+					<p>Joined on: {userInfo.createdAt}</p>
 				</div>
 			)}
+			<ReactModal
+				isOpen={modalIsOpen}
+				onRequestClose={closeModal}
+				contentLabel="Login"
+				className="login-modal"
+				overlayClassName="login-overlay">
+				<h3>Edit Profile</h3>
+				<form onSubmit={editProfile}>
+					<label htmlFor="fullname">Full Name</label>
+					<input type="text" name="fullname" id="fullname" />
+
+					<label htmlFor="title">Title</label>
+					<input type="text" name="title" id="title" />
+
+					<label htmlFor="bio">Bio</label>
+					<input type="text" name="bio" id="bio" />
+
+					<label htmlFor="email">Email</label>
+					<input type="text" name="email" id="email" />
+
+					<input type="submit" value="submit" />
+				</form>
+			</ReactModal>
 		</StyledProfile>
 	);
 };

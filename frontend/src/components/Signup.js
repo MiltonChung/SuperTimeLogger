@@ -18,28 +18,31 @@ const Signup = () => {
 	const signUpUser = e => {
 		e.preventDefault();
 		const form = {
-			username: e.target[0].value,
+			email: e.target[0].value,
 			password: e.target[1].value,
 			name: e.target[3].value,
 			bio: e.target[4].value,
 			title: e.target[5].value,
 		};
-
+		console.log("SIGNUP: before fb auth");
 		auth
-			.createUserWithEmailAndPassword(form.username, form.password)
+			.createUserWithEmailAndPassword(form.email, form.password)
 			.then(userCredential => {
 				// Signed in
 				const user = userCredential.user;
 				axios
 					.post("http://localhost:5000/users/add", {
 						userFirebaseUID: user.uid,
+						email: form.email,
 					})
 					.then(response => {
 						console.log(response);
+						console.log("SIGNUP: in backend axios auth");
 					})
 					.catch(error => {
 						console.log(error);
 					});
+				console.log("SIGNUP: in fb auth");
 			})
 			.catch(error => {
 				var errorCode = error.code;
@@ -83,8 +86,8 @@ const Signup = () => {
 				overlayClassName="login-overlay">
 				<h3>login</h3>
 				<form onSubmit={signUpUser}>
-					<label htmlFor="username">username</label>
-					<input type="text" name="username" id="username" />
+					<label htmlFor="email">email</label>
+					<input type="text" name="email" id="email" />
 
 					<label htmlFor="password">password</label>
 					<input type="text" name="password" id="password" />
