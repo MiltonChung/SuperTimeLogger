@@ -14,7 +14,7 @@ const Profile = ({ userAuth }) => {
 	useEffect(async () => {
 		if (userAuth !== null) {
 			console.log("PROFILE: ", userAuth);
-			const result = await axios(`http://localhost:5000/users/${userAuth.uid}`);
+			const result = await axios(`https://study-time-log.herokuapp.com/users/${userAuth.uid}`);
 			await setUserInfo(result.data.user);
 			await setUserEdit(result.data.user);
 		}
