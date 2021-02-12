@@ -4,6 +4,7 @@ const Log = require("../models/log.model");
 
 logRouter.route("/").get((req, res, next) => {
 	Log.find()
+		.sort({ date: -1 })
 		.then(logs => res.json(logs))
 		.catch(err => res.status(400).json("Error: " + err));
 });

@@ -42,7 +42,7 @@ const App = () => {
 						</div>
 					)}
 
-					<LogNav />
+					<LogNav userAuth={userAuth} />
 					<Switch>
 						<Route path="/" component={() => <Log userAuth={userAuth} />} exact />
 						<Route path="/add" component={() => <NewLog userAuth={userAuth} />} exact />

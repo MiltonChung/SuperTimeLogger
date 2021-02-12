@@ -15,8 +15,7 @@ const GlobalStyles = createGlobalStyle`
     }
     &::-webkit-scrollbar-track {
 		background: white;
-    
-	}
+	  }
   }
   body {
     font-family: 'Lato', sans-serif;
