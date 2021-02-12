@@ -1,13 +1,14 @@
 import React, { useEffect, useState } from "react";
 import axios from "axios";
 import styled from "styled-components";
+import { DayMonthDate, minToHM } from "../util";
 
-const Log = () => {
+const Log = ({ userAuth }) => {
 	const [logList, setLogList] = useState({ log: [] });
 
 	useEffect(() => {
 		axios
-			.get("http://localhost:5000/logs/")
+			.post("http://localhost:5000/logs/", { userId: userAuth })
 			.then(response => {
 				setLogList({ log: response.data });
 			})
@@ -23,14 +24,14 @@ const Log = () => {
 						return (
 							<div className="log" key={log._id}>
 								<div className="top">
-									<p className="log-date">{log.date}</p>
+									<p className="log-date">{DayMonthDate(log.date)}</p>
 								</div>
 								<div className="information">
 									<div className="information-left">
 										<p className="log-description">{log.description}</p>
 										<p className="log-label">{log.label}</p>
 									</div>
-									<p>Total: {log.duration}</p>
+									<p>Total: {minToHM(log.duration)}</p>
 								</div>
 							</div>
 						);

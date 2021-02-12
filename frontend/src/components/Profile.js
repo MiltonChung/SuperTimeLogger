@@ -4,6 +4,7 @@ import dogImg from "../img/dog.jpg";
 import { auth } from "../firebase";
 import axios from "axios";
 import ReactModal from "react-modal";
+import { MonthDayYear } from "../util";
 
 const Profile = ({ userAuth }) => {
 	const [modalIsOpen, setIsOpen] = useState(false);
@@ -91,7 +92,7 @@ const Profile = ({ userAuth }) => {
 					<button className="sign-out" onClick={signOut}>
 						sign out
 					</button>
-					<p>Joined on: {userInfo.createdAt}</p>
+					<p>Joined on: {MonthDayYear(userInfo.createdAt)}</p>
 				</div>
 			)}
 			<ReactModal

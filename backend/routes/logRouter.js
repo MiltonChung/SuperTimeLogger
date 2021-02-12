@@ -2,8 +2,8 @@ const express = require("express");
 const logRouter = express.Router();
 const Log = require("../models/log.model");
 
-logRouter.route("/").get((req, res, next) => {
-	Log.find()
+logRouter.route("/").post((req, res, next) => {
+	Log.find({ userId: req.body.userId.uid })
 		.sort({ date: -1 })
 		.then(logs => res.json(logs))
 		.catch(err => res.status(400).json("Error: " + err));

@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from "react";
 import axios from "axios";
 
-const NewLog = () => {
+const NewLog = ({ userAuth }) => {
 	const [form, setForm] = useState([]);
 
 	const submitForm = e => {
@@ -11,7 +11,7 @@ const NewLog = () => {
 			label: e.target[1].value,
 			duration: e.target[2].value,
 			date: new Date(),
-			userId: "602360ae5aa7fd41049785fa",
+			userId: userAuth.uid,
 		};
 		axios.post("http://localhost:5000/logs/add", form).then(res => console.log(res.data));
 	};

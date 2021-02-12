@@ -28,7 +28,7 @@ userRouter.route("/add").post((req, res, next) => {
 userRouter.route("/:id").get((req, res) => {
 	User.findOne({ userFirebaseUID: req.params.id })
 		.then(user => {
-			console.log(user);
+			// console.log(user);
 			res.statusCode = 200;
 			res.setHeader("Content-Type", "application/json");
 			res.json({ status: "User found!", user: user });

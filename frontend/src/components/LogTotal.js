@@ -9,12 +9,12 @@ const Calculate = ({ log }) => {
 	return <p>Total duration: {total}</p>;
 };
 
-const LogTotal = () => {
+const LogTotal = ({ userAuth }) => {
 	const [logList, setLogList] = useState({ log: [] });
 
 	useEffect(() => {
 		axios
-			.get("http://localhost:5000/logs/")
+			.post("http://localhost:5000/logs/", { userId: userAuth })
 			.then(response => {
 				setLogList({ log: response.data });
 			})

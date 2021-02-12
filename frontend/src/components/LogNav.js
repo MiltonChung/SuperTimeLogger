@@ -6,22 +6,21 @@ import { BsFillPlusSquareFill } from "react-icons/bs";
 const LogNav = ({ userAuth }) => {
 	return (
 		<StyledNav>
-			<div className="logs-nav">
-				<NavLink to="/" activeClassName="selected" exact>
-					Time Log
-				</NavLink>
-				{userAuth && (
-					<>
+			{userAuth && (
+				<>
+					<div className="logs-nav">
+						<NavLink to="/" activeClassName="selected" exact>
+							Time Log
+						</NavLink>
 						<NavLink to="/total" activeClassName="selected" exact>
 							Total
 						</NavLink>
-					</>
-				)}
-			</div>
-			{userAuth && (
-				<Link to="/add" className="add-log">
-					+
-				</Link>
+					</div>
+
+					<Link to="/add" className="add-log">
+						+
+					</Link>
+				</>
 			)}
 		</StyledNav>
 	);
