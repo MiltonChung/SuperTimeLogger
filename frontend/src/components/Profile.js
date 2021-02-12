@@ -188,8 +188,10 @@ const StyledProfile = styled.div`
 
 	.account-info {
 		.edit-profile {
+			padding: 0.5rem 1rem;
 		}
 		.sign-out {
+			padding: 0.5rem 1rem;
 		}
 		p {
 		}
