@@ -42,6 +42,7 @@ const Signup = () => {
 					.then(response => {
 						console.log(response);
 						console.log("SIGNUP: in backend axios auth");
+						// window.location.reload();
 					})
 					.catch(error => {
 						console.log(error);
@@ -53,7 +54,6 @@ const Signup = () => {
 				var errorMessage = error.message;
 				console.log(`${errorCode}: ${errorMessage}`);
 			});
-		window.location.reload();
 	};
 
 	const checkUser = () => {
