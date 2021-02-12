@@ -42,7 +42,7 @@ const Signup = () => {
 					.then(response => {
 						console.log(response);
 						console.log("SIGNUP: in backend axios auth");
-						window.location.reload();
+						// window.location.reload();
 					})
 					.catch(error => {
 						console.log(error);

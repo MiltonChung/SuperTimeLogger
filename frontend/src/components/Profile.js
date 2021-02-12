@@ -71,11 +71,23 @@ const Profile = ({ userAuth, userInfo, setUserInfo }) => {
 			<div className="profile-info">
 				{userAuth ? (
 					<>
-						<img src={dogImg} alt="dog" />
-						<h2>{userInfo?.name}</h2>
-						<div className="short-line"></div>
-						<h3>{userInfo?.title}</h3>
-						<p>{userInfo?.bio}</p>
+						{userInfo ? (
+							<>
+								<img src={dogImg} alt="dog" />
+								<h2>{userInfo?.name}</h2>
+								<div className="short-line"></div>
+								<h3>{userInfo?.title}</h3>
+								<p>{userInfo?.bio}</p>
+							</>
+						) : (
+							<>
+								<img src={dogImg} alt="dog" />
+								<h2>User</h2>
+								<div className="short-line"></div>
+								<h3>Title</h3>
+								<p>Bio</p>
+							</>
+						)}
 					</>
 				) : (
 					<>
