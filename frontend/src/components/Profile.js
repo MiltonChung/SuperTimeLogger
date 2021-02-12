@@ -107,29 +107,39 @@ const Profile = ({ userAuth, userInfo, setUserInfo }) => {
 					<p>Joined on: {userInfo ? MonthDayYear(userInfo.createdAt) : ""}</p>
 				</div>
 			)}
-			<ReactModal
-				isOpen={modalIsOpen}
-				onRequestClose={closeModal}
-				contentLabel="Login"
-				className="login-modal"
-				overlayClassName="login-overlay">
-				<h3>Edit Profile</h3>
-				<form onSubmit={editProfile}>
-					<label htmlFor="fullname">Full Name</label>
-					<input type="text" name="fullname" id="fullname" value={userEdit.name} onChange={handleName} />
+			{userInfo ? (
+				<ReactModal
+					isOpen={modalIsOpen}
+					onRequestClose={closeModal}
+					contentLabel="Login"
+					className="login-modal"
+					overlayClassName="login-overlay">
+					<h3>Edit Profile</h3>
+					<form onSubmit={editProfile}>
+						<label htmlFor="fullname">Full Name</label>
+						<input
+							type="text"
+							name="fullname"
+							id="fullname"
+							value={userEdit.name}
+							onChange={handleName}
+						/>
 
-					<label htmlFor="title">Title</label>
-					<input type="text" name="title" id="title" value={userEdit.title} onChange={handleTitle} />
+						<label htmlFor="title">Title</label>
+						<input type="text" name="title" id="title" value={userEdit.title} onChange={handleTitle} />
 
-					<label htmlFor="bio">Bio</label>
-					<input type="text" name="bio" id="bio" value={userEdit.bio} onChange={handleBio} />
+						<label htmlFor="bio">Bio</label>
+						<input type="text" name="bio" id="bio" value={userEdit.bio} onChange={handleBio} />
 
-					<label htmlFor="email">Email</label>
-					<input type="text" name="email" id="email" value={userEdit.email} onChange={handleEmail} />
+						<label htmlFor="email">Email</label>
+						<input type="text" name="email" id="email" value={userEdit.email} onChange={handleEmail} />
 
-					<input type="submit" value="submit" />
-				</form>
-			</ReactModal>
+						<input type="submit" value="submit" />
+					</form>
+				</ReactModal>
+			) : (
+				""
+			)}
 		</StyledProfile>
 	);
 };
