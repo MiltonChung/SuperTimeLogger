@@ -18,7 +18,7 @@ const Profile = ({ userAuth, userInfo, setUserInfo }) => {
 			await setUserInfo(result.data.user);
 			await setUserEdit(result.data.user);
 		}
-	}, [userAuth, modalIsOpen, userInfo]);
+	}, [userAuth, modalIsOpen]);
 
 	function openModal() {
 		setIsOpen(true);
@@ -71,23 +71,11 @@ const Profile = ({ userAuth, userInfo, setUserInfo }) => {
 			<div className="profile-info">
 				{userAuth ? (
 					<>
-						{userInfo ? (
-							<>
-								<img src={dogImg} alt="dog" />
-								<h2>{userInfo?.name}</h2>
-								<div className="short-line"></div>
-								<h3>{userInfo?.title}</h3>
-								<p>{userInfo?.bio}</p>
-							</>
-						) : (
-							<>
-								<img src={dogImg} alt="dog" />
-								<h2>User</h2>
-								<div className="short-line"></div>
-								<h3>Title</h3>
-								<p>Bio</p>
-							</>
-						)}
+						<img src={dogImg} alt="dog" />
+						<h2>{userInfo?.name}</h2>
+						<div className="short-line"></div>
+						<h3>{userInfo?.title}</h3>
+						<p>{userInfo?.bio}</p>
 					</>
 				) : (
 					<>
@@ -104,42 +92,33 @@ const Profile = ({ userAuth, userInfo, setUserInfo }) => {
 					<button className="sign-out" onClick={signOut}>
 						sign out
 					</button>
-					<p>Joined on: {userInfo ? MonthDayYear(userInfo.createdAt) : ""}</p>
+					<p>Joined on: {MonthDayYear(userInfo.createdAt)}</p>
 				</div>
 			)}
-			{userInfo ? (
-				<ReactModal
-					isOpen={modalIsOpen}
-					onRequestClose={closeModal}
-					contentLabel="Login"
-					className="login-modal"
-					overlayClassName="login-overlay">
-					<h3>Edit Profile</h3>
-					<form onSubmit={editProfile}>
-						<label htmlFor="fullname">Full Name</label>
-						<input
-							type="text"
-							name="fullname"
-							id="fullname"
-							value={userEdit.name}
-							onChange={handleName}
-						/>
 
-						<label htmlFor="title">Title</label>
-						<input type="text" name="title" id="title" value={userEdit.title} onChange={handleTitle} />
+			<ReactModal
+				isOpen={modalIsOpen}
+				onRequestClose={closeModal}
+				contentLabel="Login"
+				className="login-modal"
+				overlayClassName="login-overlay">
+				<h3>Edit Profile</h3>
+				<form onSubmit={editProfile}>
+					<label htmlFor="fullname">Full Name</label>
+					<input type="text" name="fullname" id="fullname" value={userEdit.name} onChange={handleName} />
 
-						<label htmlFor="bio">Bio</label>
-						<input type="text" name="bio" id="bio" value={userEdit.bio} onChange={handleBio} />
+					<label htmlFor="title">Title</label>
+					<input type="text" name="title" id="title" value={userEdit.title} onChange={handleTitle} />
 
-						<label htmlFor="email">Email</label>
-						<input type="text" name="email" id="email" value={userEdit.email} onChange={handleEmail} />
+					<label htmlFor="bio">Bio</label>
+					<input type="text" name="bio" id="bio" value={userEdit.bio} onChange={handleBio} />
 
-						<input type="submit" value="submit" />
-					</form>
-				</ReactModal>
-			) : (
-				""
-			)}
+					<label htmlFor="email">Email</label>
+					<input type="text" name="email" id="email" value={userEdit.email} onChange={handleEmail} />
+
+					<input type="submit" value="submit" />
+				</form>
+			</ReactModal>
 		</StyledProfile>
 	);
 };

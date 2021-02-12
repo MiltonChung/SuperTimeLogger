@@ -5,16 +5,8 @@ import ReactModal from "react-modal";
 import styled from "styled-components";
 import { apiURL } from "../api";
 
-const Signup = ({ userInfo, setUserInfo, userAuth }) => {
+const Signup = () => {
 	const [modalIsOpen, setIsOpen] = useState(false);
-
-	useEffect(async () => {
-		if (userAuth !== null) {
-			console.log("SIGNUP: ", userAuth);
-			const result = await axios(`${apiURL}/users/${userAuth.uid}`);
-			await setUserInfo(result.data.user);
-		}
-	}, [userInfo, modalIsOpen]);
 
 	function openModal() {
 		setIsOpen(true);
@@ -50,8 +42,7 @@ const Signup = ({ userInfo, setUserInfo, userAuth }) => {
 					.then(response => {
 						console.log(response);
 						console.log("SIGNUP: in backend axios auth");
-						closeModal();
-						// window.location.reload();
+						window.location.reload();
 					})
 					.catch(error => {
 						console.log(error);
@@ -65,32 +56,8 @@ const Signup = ({ userInfo, setUserInfo, userAuth }) => {
 			});
 	};
 
-	const checkUser = () => {
-		const user = auth.currentUser;
-		if (user != null) {
-			user
-				.updateProfile({
-					displayName: "milton",
-					photoURL: "https://icatcare.org/app/uploads/2018/07/Thinking-of-getting-a-cat.png",
-				})
-				.then(function () {
-					// Update successful.
-					console.log(user.displayName);
-					console.log(user.photoURL);
-				})
-				.catch(function (error) {
-					// An error happened.
-				});
-
-			console.log(user.email);
-			console.log(user.uid);
-		}
-	};
-
 	return (
 		<div>
-			{/* <button onClick={checkUser}>check user</button> */}
-
 			<button onClick={openModal}>Sign Up</button>
 			<ReactModal
 				isOpen={modalIsOpen}
