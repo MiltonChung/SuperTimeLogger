@@ -104,7 +104,7 @@ const Profile = ({ userAuth, userInfo, setUserInfo }) => {
 					<button className="sign-out" onClick={signOut}>
 						sign out
 					</button>
-					<p>Joined on: {MonthDayYear(userInfo.createdAt)}</p>
+					<p>Joined on: {userInfo ? MonthDayYear(userInfo.createdAt) : ""}</p>
 				</div>
 			)}
 			<ReactModal
