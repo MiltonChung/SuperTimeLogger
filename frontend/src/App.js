@@ -39,7 +39,7 @@ const App = () => {
 				<div className="logs-info">
 					{!userAuth && (
 						<div className="userForms">
-							<Signup userInfo={userInfo} setUserInfo={setUserInfo} />
+							<Signup userInfo={userInfo} setUserInfo={setUserInfo} userAuth={userAuth} />
 							<Login />
 						</div>
 					)}

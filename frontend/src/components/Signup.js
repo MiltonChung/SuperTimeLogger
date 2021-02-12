@@ -5,8 +5,16 @@ import ReactModal from "react-modal";
 import styled from "styled-components";
 import { apiURL } from "../api";
 
-const Signup = () => {
+const Signup = ({ userInfo, setUserInfo, userAuth }) => {
 	const [modalIsOpen, setIsOpen] = useState(false);
+
+	useEffect(async () => {
+		if (userAuth !== null) {
+			console.log("SIGNUP: ", userAuth);
+			const result = await axios(`${apiURL}/users/${userAuth.uid}`);
+			await setUserInfo(result.data.user);
+		}
+	}, [userInfo, modalIsOpen]);
 
 	function openModal() {
 		setIsOpen(true);
@@ -42,6 +50,7 @@ const Signup = () => {
 					.then(response => {
 						console.log(response);
 						console.log("SIGNUP: in backend axios auth");
+						closeModal();
 						// window.location.reload();
 					})
 					.catch(error => {
