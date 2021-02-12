@@ -10,12 +10,13 @@ userRouter.route("/").get((req, res, next) => {
 });
 
 userRouter.route("/add").post((req, res, next) => {
-	console.log(req.body);
+	console.log("USERS ROUTE ADD: ", req.body);
 	User.create({
 		userFirebaseUID: req.body.userFirebaseUID,
 		email: req.body.email,
-		// bio: req.body.bio,
-		// title: req.body.title,
+		bio: req.body.bio,
+		title: req.body.title,
+		name: req.body.name,
 	})
 		.then(user => {
 			res.statusCode = 200;

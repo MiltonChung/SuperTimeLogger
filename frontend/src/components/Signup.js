@@ -21,9 +21,9 @@ const Signup = () => {
 		const form = {
 			email: e.target[0].value,
 			password: e.target[1].value,
-			name: e.target[3].value,
-			bio: e.target[4].value,
-			title: e.target[5].value,
+			name: e.target[2].value,
+			bio: e.target[3].value,
+			title: e.target[4].value,
 		};
 		console.log("SIGNUP: before fb auth");
 		auth
@@ -35,6 +35,9 @@ const Signup = () => {
 					.post(`${apiURL}/users/add`, {
 						userFirebaseUID: user.uid,
 						email: form.email,
+						name: form.name,
+						bio: form.bio,
+						title: form.title,
 					})
 					.then(response => {
 						console.log(response);
