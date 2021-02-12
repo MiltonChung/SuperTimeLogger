@@ -7,9 +7,8 @@ import ReactModal from "react-modal";
 import { MonthDayYear } from "../util";
 import { apiURL } from "../api";
 
-const Profile = ({ userAuth }) => {
+const Profile = ({ userAuth, userInfo, setUserInfo }) => {
 	const [modalIsOpen, setIsOpen] = useState(false);
-	const [userInfo, setUserInfo] = useState({});
 	const [userEdit, setUserEdit] = useState({});
 
 	useEffect(async () => {

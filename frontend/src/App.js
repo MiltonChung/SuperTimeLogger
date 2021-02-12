@@ -14,6 +14,8 @@ import Signup from "./components/Signup";
 
 const App = () => {
 	const [userAuth, setUserAuth] = useState(null);
+	const [userInfo, setUserInfo] = useState({});
+
 	useEffect(() => {
 		auth.onAuthStateChanged(user => {
 			if (user) {
@@ -31,13 +33,13 @@ const App = () => {
 			<GlobalStyles />
 			<StyledDashboard>
 				<div className="profile">
-					<Profile userAuth={userAuth} />
+					<Profile userAuth={userAuth} userInfo={userInfo} setUserInfo={setUserInfo} />
 				</div>
 				<div className="vertical-line"></div>
 				<div className="logs-info">
 					{!userAuth && (
 						<div className="userForms">
-							<Signup />
+							<Signup userInfo={userInfo} setUserInfo={setUserInfo} />
 							<Login />
 						</div>
 					)}
