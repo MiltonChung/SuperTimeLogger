@@ -59,7 +59,7 @@ const Signup = () => {
 						console.log(response);
 						console.log("SIGNUP: in backend axios auth");
 						closeModal();
-						// window.location.reload();
+						window.location.reload();
 					})
 					.catch(error => {
 						console.log(error);

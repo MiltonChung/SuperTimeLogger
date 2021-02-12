@@ -92,7 +92,7 @@ const Profile = ({ userAuth, userInfo, setUserInfo }) => {
 					<button className="sign-out" onClick={signOut}>
 						sign out
 					</button>
-					<p>Joined on: {MonthDayYear(userInfo.createdAt)}</p>
+					<p>Joined on: {MonthDayYear(userInfo?.createdAt)}</p>
 				</div>
 			)}
 
@@ -105,16 +105,16 @@ const Profile = ({ userAuth, userInfo, setUserInfo }) => {
 				<h3>Edit Profile</h3>
 				<form onSubmit={editProfile}>
 					<label htmlFor="fullname">Full Name</label>
-					<input type="text" name="fullname" id="fullname" value={userEdit.name} onChange={handleName} />
+					<input type="text" name="fullname" id="fullname" value={userEdit?.name} onChange={handleName} />
 
 					<label htmlFor="title">Title</label>
-					<input type="text" name="title" id="title" value={userEdit.title} onChange={handleTitle} />
+					<input type="text" name="title" id="title" value={userEdit?.title} onChange={handleTitle} />
 
 					<label htmlFor="bio">Bio</label>
-					<input type="text" name="bio" id="bio" value={userEdit.bio} onChange={handleBio} />
+					<input type="text" name="bio" id="bio" value={userEdit?.bio} onChange={handleBio} />
 
 					<label htmlFor="email">Email</label>
-					<input type="text" name="email" id="email" value={userEdit.email} onChange={handleEmail} />
+					<input type="text" name="email" id="email" value={userEdit?.email} onChange={handleEmail} />
 
 					<input type="submit" value="submit" />
 				</form>
