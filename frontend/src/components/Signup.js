@@ -5,8 +5,16 @@ import ReactModal from "react-modal";
 import styled from "styled-components";
 import { apiURL } from "../api";
 
-const Signup = () => {
+const Signup = ({ userAuth, setUserInfo }) => {
 	const [modalIsOpen, setIsOpen] = useState(false);
+
+	useEffect(async () => {
+		if (userAuth !== null) {
+			console.log("PROFILE: ", userAuth);
+			const result = await axios(`${apiURL}/users/${userAuth.uid}`);
+			setUserInfo(result.data.user);
+		}
+	}, [userAuth, modalIsOpen]);
 
 	function openModal() {
 		setIsOpen(true);
@@ -24,14 +32,20 @@ const Signup = () => {
 
 		if (e.target[2].value === "") {
 			name = "Mysterious User";
+		} else {
+			name = e.target[2].value;
 		}
 
 		if (e.target[3].value === "") {
 			bio = "Mysterious Person";
+		} else {
+			bio = e.target[3].value;
 		}
 
 		if (e.target[4].value === "") {
 			title = "Mysterious";
+		} else {
+			title = e.target[4].value;
 		}
 
 		const form = {
@@ -59,7 +73,6 @@ const Signup = () => {
 						console.log(response);
 						console.log("SIGNUP: in backend axios auth");
 						closeModal();
-						// window.location.reload();
 					})
 					.catch(error => {
 						console.log(error);
