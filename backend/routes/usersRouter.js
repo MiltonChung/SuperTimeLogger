@@ -5,7 +5,10 @@ const userRouter = express.Router();
 
 userRouter.route("/").get((req, res, next) => {
 	User.find()
-		.then(users => res.json(users))
+		.then(users => {
+			res.json(users);
+			console.log(users);
+		})
 		.catch(err => res.status(400).json("Error: " + err));
 });
 
