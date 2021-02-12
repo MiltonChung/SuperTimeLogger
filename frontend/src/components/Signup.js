@@ -18,12 +18,28 @@ const Signup = () => {
 
 	const signUpUser = e => {
 		e.preventDefault();
+		let name = "";
+		let bio = "";
+		let title = "";
+
+		if (e.target[2].value === "") {
+			name = "Mysterious User";
+		}
+
+		if (e.target[3].value === "") {
+			bio = "Mysterious Person";
+		}
+
+		if (e.target[4].value === "") {
+			title = "Mysterious";
+		}
+
 		const form = {
 			email: e.target[0].value,
 			password: e.target[1].value,
-			name: e.target[2].value,
-			bio: e.target[3].value,
-			title: e.target[4].value,
+			name: name,
+			bio: bio,
+			title: title,
 		};
 		console.log("SIGNUP: before fb auth");
 		auth
@@ -42,7 +58,8 @@ const Signup = () => {
 					.then(response => {
 						console.log(response);
 						console.log("SIGNUP: in backend axios auth");
-						window.location.reload();
+						closeModal();
+						// window.location.reload();
 					})
 					.catch(error => {
 						console.log(error);

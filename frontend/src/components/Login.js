@@ -8,6 +8,7 @@ ReactModal.setAppElement("#root");
 
 const Login = () => {
 	const [modalIsOpen, setIsOpen] = useState(false);
+
 	const loginUser = e => {
 		e.preventDefault();
 		const form = {

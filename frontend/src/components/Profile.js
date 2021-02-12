@@ -15,8 +15,8 @@ const Profile = ({ userAuth, userInfo, setUserInfo }) => {
 		if (userAuth !== null) {
 			console.log("PROFILE: ", userAuth);
 			const result = await axios(`${apiURL}/users/${userAuth.uid}`);
-			await setUserInfo(result.data.user);
-			await setUserEdit(result.data.user);
+			setUserInfo(result.data.user);
+			setUserEdit(result.data.user);
 		}
 	}, [userAuth, modalIsOpen]);
 
