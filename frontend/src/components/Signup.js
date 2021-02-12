@@ -14,7 +14,7 @@ const Signup = ({ userAuth, setUserInfo }) => {
 			const result = await axios(`${apiURL}/users/${userAuth.uid}`);
 			setUserInfo(result.data.user);
 		}
-	}, [userAuth, modalIsOpen]);
+	}, [userAuth, modalIsOpen, setUserInfo]);
 
 	function openModal() {
 		setIsOpen(true);
