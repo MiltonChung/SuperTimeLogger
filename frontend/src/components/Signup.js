@@ -53,6 +53,7 @@ const Signup = () => {
 				var errorMessage = error.message;
 				console.log(`${errorCode}: ${errorMessage}`);
 			});
+		location.reload();
 	};
 
 	const checkUser = () => {
