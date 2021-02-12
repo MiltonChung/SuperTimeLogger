@@ -55,7 +55,6 @@ const Signup = ({ userAuth, setUserInfo }) => {
 			bio: bio,
 			title: title,
 		};
-		console.log("SIGNUP: before fb auth");
 		auth
 			.createUserWithEmailAndPassword(form.email, form.password)
 			.then(userCredential => {
@@ -70,14 +69,13 @@ const Signup = ({ userAuth, setUserInfo }) => {
 						title: form.title,
 					})
 					.then(response => {
-						console.log(response);
-						console.log("SIGNUP: in backend axios auth");
+						console.log("SIGNUP: in backend axios auth", response);
+						setUserInfo(response.data.user);
 						closeModal();
 					})
 					.catch(error => {
 						console.log(error);
 					});
-				console.log("SIGNUP: in fb auth");
 			})
 			.catch(error => {
 				var errorCode = error.code;
