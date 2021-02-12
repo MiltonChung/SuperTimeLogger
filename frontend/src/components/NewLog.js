@@ -1,5 +1,6 @@
-import React, { useEffect, useState } from "react";
+import React, { useState } from "react";
 import axios from "axios";
+import { apiURL } from "../api";
 
 const NewLog = ({ userAuth }) => {
 	const [form, setForm] = useState([]);
@@ -13,7 +14,7 @@ const NewLog = ({ userAuth }) => {
 			date: new Date(),
 			userId: userAuth.uid,
 		};
-		axios.post("http://localhost:5000/logs/add", form).then(res => console.log(res.data));
+		axios.post(`${apiURL}/logs/add`, form).then(res => console.log(res.data));
 	};
 
 	return (

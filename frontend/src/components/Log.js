@@ -2,13 +2,14 @@ import React, { useEffect, useState } from "react";
 import axios from "axios";
 import styled from "styled-components";
 import { DayMonthDate, minToHM } from "../util";
+import { apiURL } from "../api";
 
 const Log = ({ userAuth }) => {
 	const [logList, setLogList] = useState({ log: [] });
 
 	useEffect(() => {
 		axios
-			.post("http://localhost:5000/logs/", { userId: userAuth })
+			.post(`${apiURL}/logs/`, { userId: userAuth })
 			.then(response => {
 				setLogList({ log: response.data });
 			})

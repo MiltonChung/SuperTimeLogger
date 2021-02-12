@@ -5,6 +5,7 @@ import { auth } from "../firebase";
 import axios from "axios";
 import ReactModal from "react-modal";
 import { MonthDayYear } from "../util";
+import { apiURL } from "../api";
 
 const Profile = ({ userAuth }) => {
 	const [modalIsOpen, setIsOpen] = useState(false);
@@ -14,7 +15,7 @@ const Profile = ({ userAuth }) => {
 	useEffect(async () => {
 		if (userAuth !== null) {
 			console.log("PROFILE: ", userAuth);
-			const result = await axios(`https://study-time-log.herokuapp.com/users/${userAuth.uid}`);
+			const result = await axios(`${apiURL}/users/${userAuth.uid}`);
 			await setUserInfo(result.data.user);
 			await setUserEdit(result.data.user);
 		}
@@ -56,7 +57,7 @@ const Profile = ({ userAuth }) => {
 		};
 
 		try {
-			const update = await axios.post(`http://localhost:5000/users/update/${userAuth.uid}`, form);
+			const update = await axios.post(`${apiURL}/users/update/${userAuth.uid}`, form);
 			const updateEmailRes = await auth.currentUser.updateEmail(form.email);
 			console.log("PROFILE update: ", update);
 			console.log("PROFILE updateEmailRes: ", updateEmailRes);

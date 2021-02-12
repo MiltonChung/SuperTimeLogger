@@ -1,5 +1,6 @@
 import React, { useEffect, useState } from "react";
 import axios from "axios";
+import { apiURL } from "../api";
 
 const Calculate = ({ log }) => {
 	let total = log.reduce((acc, curr) => {
@@ -14,7 +15,7 @@ const LogTotal = ({ userAuth }) => {
 
 	useEffect(() => {
 		axios
-			.post("http://localhost:5000/logs/", { userId: userAuth })
+			.post(`${apiURL}/logs/`, { userId: userAuth })
 			.then(response => {
 				setLogList({ log: response.data });
 			})

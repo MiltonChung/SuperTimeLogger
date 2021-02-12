@@ -1,8 +1,9 @@
-import React, { useState, useEffect } from "react";
+import React, { useState } from "react";
 import axios from "axios";
 import { auth } from "../firebase";
 import ReactModal from "react-modal";
 import styled from "styled-components";
+import { apiURL } from "../api";
 
 const Signup = () => {
 	const [modalIsOpen, setIsOpen] = useState(false);
@@ -31,7 +32,7 @@ const Signup = () => {
 				// Signed in
 				const user = userCredential.user;
 				axios
-					.post("http://localhost:5000/users/add", {
+					.post(`${apiURL}/users/add`, {
 						userFirebaseUID: user.uid,
 						email: form.email,
 					})
