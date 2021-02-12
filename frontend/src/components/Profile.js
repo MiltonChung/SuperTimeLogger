@@ -18,7 +18,7 @@ const Profile = ({ userAuth, userInfo, setUserInfo }) => {
 			setUserInfo(result.data.user);
 			setUserEdit(result.data.user);
 		}
-	}, [userAuth, modalIsOpen]);
+	}, [userAuth, modalIsOpen, setUserInfo]);
 
 	function openModal() {
 		setIsOpen(true);
