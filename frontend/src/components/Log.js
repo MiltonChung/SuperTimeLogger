@@ -30,7 +30,7 @@ const Log = ({ userAuth }) => {
 								<div className="information">
 									<div className="information-left">
 										<p className="log-description">{log.description}</p>
-										<p className="log-label">{log.label}</p>
+										{log.label && <p className="log-label">{log.label}</p>}
 									</div>
 									<p>Total: {minToHM(log.duration)}</p>
 								</div>

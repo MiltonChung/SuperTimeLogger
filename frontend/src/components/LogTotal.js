@@ -3,24 +3,67 @@ import axios from "axios";
 import { apiURL } from "../api";
 import styled from "styled-components";
 import TotalSVG from "../img/total_chart.svg";
-import { minToHM } from "../util";
+import { minToHM, getRandomInt, getTotalMins } from "../util";
 
 const TotalTimeSpent = ({ log }) => {
-	let total = log.reduce((acc, curr) => {
-		return acc + curr.duration;
-	}, 0);
-
+	const mins = getTotalMins(log);
 	return (
 		<>
-			<h2>Total Time Spent:</h2>
-			<p className="total">{minToHM(total)}</p>
+			{mins >= 60 ? (
+				<>
+					<p className="total-min">
+						<span>{mins}</span> minutes
+					</p>
+					<h2>Total Time Spent</h2>
+					<p className="total-hour-min">that's {minToHM(getTotalMins(log))}!</p>
+				</>
+			) : (
+				<>
+					<p className="total-min">
+						<span>{mins}</span> minutes
+					</p>
+				</>
+			)}
 		</>
+	);
+};
+
+const CommunityTotal = ({ log }) => {
+	const mins = getTotalMins(log);
+	return (
+		<>
+			{mins >= 60 ? (
+				<>
+					<p className="total-min">
+						<span>{mins}</span> minutes
+					</p>
+					<h2>Community Total</h2>
+					<p className="total-hour-min">that's {minToHM(getTotalMins(log))}!</p>
+				</>
+			) : (
+				<>
+					<p className="total-min">
+						<span>{mins}</span> minutes
+					</p>
+				</>
+			)}
+		</>
+	);
+};
+
+const RandomQuote = ({ quote }) => {
+	return (
+		<div className="random-quote">
+			<h3>"{quote.text}"</h3>
+			<p>- {quote.author === null ? "Anonymous" : quote.author}</p>
+		</div>
 	);
 };
 
 const LogTotal = ({ userAuth }) => {
 	const [logList, setLogList] = useState({ log: [] });
 	const [allLogs, setAllLogs] = useState({ log: [] });
+	const [randomQuote, setRandomQuote] = useState();
 
 	useEffect(() => {
 		axios
@@ -37,7 +80,6 @@ const LogTotal = ({ userAuth }) => {
 		axios
 			.post(`${apiURL}/logs/`, { userId: "" })
 			.then(response => {
-				console.log(response.data);
 				setAllLogs({ log: response.data });
 			})
 			.catch(error => {
@@ -45,10 +87,30 @@ const LogTotal = ({ userAuth }) => {
 			});
 	}, []);
 
+	useEffect(() => {
+		axios
+			.get("https://type.fit/api/quotes")
+			.then(response => {
+				const res = response.data[getRandomInt(0, response.data.length)];
+				setRandomQuote(res);
+			})
+			.catch(err => console.log(err));
+	}, []);
+
 	return (
 		<StyledTotal>
-			<img src={TotalSVG} alt="total" />
-			{logList.log.length !== 0 && <TotalTimeSpent log={logList.log} />}
+			<div className="img-quote">
+				<img src={TotalSVG} alt="total" />
+				{randomQuote && <RandomQuote quote={randomQuote} />}
+			</div>
+			<div className="total">
+				<div className="total-category">
+					{logList.log.length !== 0 && <TotalTimeSpent log={logList.log} />}
+				</div>
+				<div className="total-category">
+					{allLogs.log.length !== 0 && <CommunityTotal log={allLogs.log} />}
+				</div>
+			</div>
 		</StyledTotal>
 	);
 };
@@ -56,14 +118,63 @@ const LogTotal = ({ userAuth }) => {
 const StyledTotal = styled.div`
 	display: flex;
 	flex-direction: column;
-	justify-content: center;
+	justify-content: flex-start;
 	align-items: center;
 	margin-top: 1rem;
+	height: 100%;
 
 	img {
-		width: 50%;
+		width: 40%;
+		min-width: 250px;
+	}
+	.img-quote {
+		display: flex;
+		flex-direction: row;
+		justify-content: center;
+		align-items: center;
 	}
 	.total {
+		width: 100%;
+		height: fit-content;
+		margin-top: 3rem;
+		display: grid;
+		grid-template-columns: 1fr 1fr;
+		justify-items: center;
+
+		&-category {
+			background: #59afff;
+			box-shadow: inset -3px -3px 10px rgba(18, 54, 131, 0.445);
+			border-radius: 15px;
+			padding: 1rem;
+
+			.total-min {
+				font-size: 18px;
+				text-align: center;
+				span {
+					font-size: 60px;
+				}
+			}
+			.total-hour-min {
+				font-size: 13px;
+				text-align: right;
+				font-style: italic;
+			}
+		}
+	}
+	.random-quote {
+		text-align: center;
+		h3 {
+			font-size: 26px;
+			line-height: 30px;
+			font-weight: 500;
+			font-style: italic;
+		}
+		p {
+			font-size: 18px;
+			line-height: 20px;
+			font-weight: 400;
+			font-style: italic;
+		}
 	}
 `;
 

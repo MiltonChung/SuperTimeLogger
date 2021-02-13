@@ -29,3 +29,15 @@ export const MonthDayYear = d => {
 	const date = userDate.getDate();
 	return `${month}/${date}/${year}`;
 };
+
+export const getRandomInt = (min, max) => {
+	min = Math.ceil(min);
+	max = Math.floor(max);
+	return Math.floor(Math.random() * (max - min + 1)) + min;
+};
+
+export const getTotalMins = arr => {
+	return arr.reduce((acc, curr) => {
+		return acc + curr.duration;
+	}, 0);
+};
