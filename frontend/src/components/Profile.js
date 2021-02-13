@@ -1,11 +1,12 @@
 import React, { useEffect, useState } from "react";
 import styled from "styled-components";
-import dogImg from "../img/dog.jpg";
 import { auth } from "../firebase";
 import axios from "axios";
 import ReactModal from "react-modal";
 import { MonthDayYear } from "../util";
 import { apiURL } from "../api";
+import dogImg from "../img/dog.jpg";
+import EditProfileSVG from "../img/edit-profile.svg";
 
 const Profile = ({ userAuth, userInfo, setUserInfo }) => {
 	const [modalIsOpen, setIsOpen] = useState(false);
@@ -106,28 +107,84 @@ const Profile = ({ userAuth, userInfo, setUserInfo }) => {
 				isOpen={modalIsOpen}
 				onRequestClose={closeModal}
 				contentLabel="Login"
-				className="login-modal"
-				overlayClassName="login-overlay">
-				<h3>Edit Profile</h3>
-				<form onSubmit={editProfile}>
-					<label htmlFor="fullname">Full Name</label>
-					<input type="text" name="fullname" id="fullname" value={userEdit?.name} onChange={handleName} />
+				className="study-modal edit-profile-modal"
+				overlayClassName="study-overlay">
+				<StyledForm onSubmit={editProfile} className="edit-profile-form">
+					<img src={EditProfileSVG} alt="svg" />
+					<h3>Edit Profile</h3>
+					<div className="form-row">
+						<label htmlFor="fullname">Full Name</label>
+						<input
+							type="text"
+							name="fullname"
+							id="fullname"
+							value={userEdit?.name}
+							onChange={handleName}
+							placeholder="Full Name"
+						/>
+					</div>
 
-					<label htmlFor="title">Title</label>
-					<input type="text" name="title" id="title" value={userEdit?.title} onChange={handleTitle} />
+					<div className="form-row">
+						<label htmlFor="title">Title</label>
+						<input
+							type="text"
+							name="title"
+							id="title"
+							value={userEdit?.title}
+							onChange={handleTitle}
+							placeholder="Title"
+						/>
+					</div>
 
-					<label htmlFor="bio">Bio</label>
-					<input type="text" name="bio" id="bio" value={userEdit?.bio} onChange={handleBio} />
+					<div className="form-row">
+						<label htmlFor="bio">Bio</label>
+						<textarea
+							type="text"
+							name="bio"
+							id="bio"
+							className="textarea"
+							value={userEdit?.bio}
+							onChange={handleBio}
+							placeholder="Bio"
+							rows="3"
+							maxLength="150"
+						/>
+					</div>
 
-					<label htmlFor="email">Email</label>
-					<input type="text" name="email" id="email" value={userEdit?.email} onChange={handleEmail} />
+					<div className="form-row">
+						<label htmlFor="email">Email</label>
+						<input
+							type="text"
+							name="email"
+							id="email"
+							value={userEdit?.email}
+							onChange={handleEmail}
+							placeholder="Email"
+						/>
+					</div>
 
-					<input type="submit" value="submit" />
-				</form>
+					<div className="modal-buttons">
+						<button type="submit">update</button>
+						<button onClick={closeModal}>close</button>
+					</div>
+				</StyledForm>
 			</ReactModal>
 		</StyledProfile>
 	);
 };
+
+const StyledForm = styled.form`
+	display: flex;
+	flex-direction: column;
+
+	img {
+		width: 40%;
+		align-self: center;
+	}
+	h3 {
+		font-size: 20px;
+	}
+`;
 
 const StyledProfile = styled.div`
 	display: flex;
@@ -187,13 +244,31 @@ const StyledProfile = styled.div`
 	}
 
 	.account-info {
+		justify-content: center;
+		flex-direction: column;
+		align-items: center;
+		display: flex;
+
 		.edit-profile {
 			padding: 0.5rem 1rem;
+			background: #59afff;
+			margin-bottom: 0.6rem;
+			width: 130px;
+			cursor: pointer;
+			font-size: 16px;
 		}
 		.sign-out {
 			padding: 0.5rem 1rem;
+			background: #ff0000;
+			margin-bottom: 0.6rem;
+			width: 130px;
+			font-size: 16px;
 		}
-		p {
+		.edit-profile:hover {
+			background: #488ccc;
+		}
+		.sign-out:hover {
+			background: #c70000;
 		}
 	}
 `;
