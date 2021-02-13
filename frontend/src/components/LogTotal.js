@@ -22,6 +22,7 @@ const TotalTimeSpent = ({ log }) => {
 					<p className="total-min">
 						<span>{mins}</span> minutes
 					</p>
+					<h2>Total Time Spent</h2>
 				</>
 			)}
 		</>
@@ -45,6 +46,7 @@ const CommunityTotal = ({ log }) => {
 					<p className="total-min">
 						<span>{mins}</span> minutes
 					</p>
+					<h2>Total Time Spent</h2>
 				</>
 			)}
 		</>
