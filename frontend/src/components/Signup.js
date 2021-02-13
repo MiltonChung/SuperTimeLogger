@@ -26,8 +26,12 @@ const Signup = ({ userAuth, setUserInfo }) => {
 		setIsOpen(false);
 	}
 
-	const togglePassword = e => {
-		console.log("hi");
+	const togglePassword = () => {
+		if (revealPassword.current.type === "password") {
+			revealPassword.current.type = "text";
+		} else {
+			revealPassword.current.type = "password";
+		}
 	};
 
 	const signUpUser = e => {
