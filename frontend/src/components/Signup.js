@@ -125,7 +125,8 @@ const Signup = ({ userAuth, setUserInfo }) => {
 							placeholder="example123"
 						/>
 						<div className="show-password">
-							<input type="checkbox" onClick={togglePassword} /> Show Password
+							<input type="checkbox" onClick={togglePassword} />
+							<p>Show Password</p>
 						</div>
 					</div>
 

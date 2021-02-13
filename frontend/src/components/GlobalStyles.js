@@ -79,7 +79,24 @@ const GlobalStyles = createGlobalStyle`
     }
 	}
   .signup-modal {
-    height: 540px;
+    height: 559px;
+    .show-password {
+      display: flex;
+      align-items: center;
+      margin-top: 5px;
+
+      input[type='checkbox'] {
+        -ms-transform: scale(2); /* IE */
+        -moz-transform: scale(2); /* FF */
+        -webkit-transform: scale(2); /* Safari and Chrome */
+        -o-transform: scale(2); /* Opera */
+        transform: scale(1.05);
+        margin-right: 5px;
+      }
+      p {
+        font-size: 13px;
+      }
+    }
   }
   .edit-profile-modal {
     height: 590px !important;
@@ -139,11 +156,15 @@ const GlobalStyles = createGlobalStyle`
 		}
     input[type="text"]::placeholder,
     input[type="password"]::placeholder,
+    input[type="date"]::placeholder,
+    input[type="number"]::placeholder,
 		textarea[type="text"]::placeholder {
       color: #8a8a8a;
     }
 		input[type="text"],
     input[type="password"],
+    input[type="date"],
+    input[type="number"],
 		textarea[type="text"] {
 			font-family: "Lato", sans-serif;
 			padding: 7px 10px;
@@ -156,12 +177,29 @@ const GlobalStyles = createGlobalStyle`
 		}
 		input[type="text"]:focus,
     input[type="password"]:focus,
+    input[type="date"]:focus,
+    input[type="number"]:focus,
 		textarea[type="text"]:focus {
 			border: #3d3d3d solid 2px;
 		}
 		textarea[type="text"] {
 			max-width: 100%;
 		}
+    input[type=number]::-webkit-outer-spin-button,
+    input[type=number]::-webkit-inner-spin-button {
+      -webkit-appearance: none;
+      margin: 0;
+    }
+    input[type=number] {
+      -moz-appearance: textfield;
+      background: rgba(255, 255, 255, 0.548);
+    }
+    input:-webkit-autofill,
+    input:-webkit-autofill:hover, 
+    input:-webkit-autofill:focus, 
+    input:-webkit-autofill:active  {
+        -webkit-box-shadow: 0 0 0 30px rgba(255, 255, 255, 0.034) inset !important;
+    }
 	}
 
   .home-button {

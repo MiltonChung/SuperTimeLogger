@@ -3,10 +3,16 @@ const logRouter = express.Router();
 const Log = require("../models/log.model");
 
 logRouter.route("/").post((req, res, next) => {
-	Log.find({ userId: req.body.userId.uid })
-		.sort({ date: -1 })
-		.then(logs => res.json(logs))
-		.catch(err => res.status(400).json("Error: " + err));
+	if (req.body.userId === "") {
+		Log.find()
+			.then(logs => res.json(logs))
+			.catch(err => res.status(400).json("Error: " + err));
+	} else {
+		Log.find({ userId: req.body.userId.uid })
+			.sort({ date: -1 })
+			.then(logs => res.json(logs))
+			.catch(err => res.status(400).json("Error: " + err));
+	}
 });
 
 logRouter.route("/add").post((req, res, next) => {
@@ -20,7 +26,10 @@ logRouter.route("/add").post((req, res, next) => {
 	newLog
 		.save()
 		.then(log => res.json(log))
-		.catch(err => res.status(400).json("Error: " + err));
+		.catch(err => {
+			console.log("bad");
+			res.status(400).json("Error: " + err);
+		});
 });
 
 logRouter
