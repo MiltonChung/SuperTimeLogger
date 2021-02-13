@@ -9,7 +9,10 @@ userRouter.route("/").get((req, res, next) => {
 			res.json(users);
 			console.log(users);
 		})
-		.catch(err => res.status(400).json("Error: " + err));
+		.catch(err => {
+			console.log(err);
+			res.status(400).json("Error: " + err);
+		});
 });
 
 userRouter.route("/add").post((req, res, next) => {
