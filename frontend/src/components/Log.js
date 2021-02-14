@@ -195,7 +195,7 @@ const Log = ({ userAuth }) => {
 
 							{/* <div className="form-row">
 								<label htmlFor="date">
-									Date: <small>(leave empty for today's date)</small>
+									Date:
 								</label>
 								<input
 									type="date"

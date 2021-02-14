@@ -53,8 +53,8 @@ export const inputToValue = (d, value) => {
 	if (day < 10) {
 		day = day.padStart(2, "0");
 	}
-	console.log("original new date: ", date);
-	console.log("formatted day: ", day);
-	console.log("from: ", value);
+	// console.log("original new date: ", date);
+	// console.log("formatted day: ", day);
+	// console.log("from: ", value);
 	return `${year}-${month}-${day}`;
 };
