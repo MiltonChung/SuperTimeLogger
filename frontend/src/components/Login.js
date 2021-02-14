@@ -9,6 +9,11 @@ ReactModal.setAppElement("#root");
 
 const Login = () => {
 	const [modalIsOpen, setIsOpen] = useState(false);
+	const [errMsg, setErrMsg] = useState("");
+
+	useEffect(() => {
+		setErrMsg("");
+	}, [modalIsOpen]);
 
 	const loginUser = e => {
 		e.preventDefault();
@@ -17,6 +22,11 @@ const Login = () => {
 			password: e.target[1].value,
 		};
 
+		if (form.username === "" || form.password === "") {
+			setErrMsg("Please fill out all fields");
+			return;
+		}
+
 		auth
 			.signInWithEmailAndPassword(form.username, form.password)
 			.then(userCredential => {
@@ -24,8 +34,9 @@ const Login = () => {
 				const user = userCredential.user;
 			})
 			.catch(error => {
-				var errorCode = error.code;
-				var errorMessage = error.message;
+				const errorCode = error.code;
+				const errorMessage = error.message;
+				setErrMsg(errorMessage);
 				console.log(`${errorCode}: ${errorMessage}`);
 			});
 	};
@@ -62,6 +73,7 @@ const Login = () => {
 						<label htmlFor="password">Password</label>
 						<input type="password" name="password" id="password" placeholder="Password" />
 					</div>
+					<div className="form-error-msg">{errMsg && <small>{errMsg}</small>}</div>
 					<div className="modal-buttons">
 						<button type="submit">login</button>
 						<button onClick={closeModal}>close</button>

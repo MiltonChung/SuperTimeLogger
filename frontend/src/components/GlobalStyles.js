@@ -62,6 +62,14 @@ const GlobalStyles = createGlobalStyle`
     border-radius: 10px;
     outline: none;
     overflow-y: auto;
+    .form-error-msg {
+        margin-left: 5px;
+        text-align: left;
+        small {
+          font-size: 13px;
+          color: red;
+        }
+      }
 	}
   .login-modal {
     form {
@@ -76,6 +84,7 @@ const GlobalStyles = createGlobalStyle`
         justify-self: center;
         align-self: center;
       }
+      
     }
 	}
   .signup-modal {
@@ -93,7 +102,8 @@ const GlobalStyles = createGlobalStyle`
         transform: scale(1.05);
         margin-right: 5px;
       }
-      p {
+      label {
+        margin: 0;
         font-size: 13px;
       }
     }
@@ -201,6 +211,7 @@ const GlobalStyles = createGlobalStyle`
       box-shadow:0 0 0 30px rgba(255, 255, 255, 0.034) inset !important;
       -webkit-box-shadow: 0 0 0 30px rgba(255, 255, 255, 0.034) inset !important;
     }
+    
 	}
 
   .home-button {
