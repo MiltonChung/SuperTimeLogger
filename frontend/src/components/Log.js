@@ -79,7 +79,7 @@ const Log = ({ userAuth }) => {
 			...userEdit,
 			[currLogIndex]: {
 				...userEdit[currLogIndex],
-				date: inputToValue(e.target.value),
+				date: e.target.value,
 			},
 		};
 		setUserEdit(newArr);
@@ -94,18 +94,16 @@ const Log = ({ userAuth }) => {
 		if (e.target.duration.value === "") {
 			return;
 		}
-		const date = e.target.date.value;
 
 		const form = {
 			description: e.target.description.value,
 			duration: e.target.duration.value,
 			label: e.target.label.value,
-			date: date,
+			// date: e.target.date.value,
 			userId: userAuth.uid,
 		};
 
 		console.log("edit form", form);
-		console.log(form.date);
 		axios.post(`${apiURL}/logs/update/${currLogId}`, form).then(response => {
 			[...logList][currLogIndex] = response;
 			setLogList(logList);
@@ -114,7 +112,6 @@ const Log = ({ userAuth }) => {
 	};
 
 	const deleteLog = log => {
-		console.log("delete clicked");
 		axios
 			.delete(`${apiURL}/logs/${log._id}`)
 			.then(data => setUpdateLog(data))
@@ -196,7 +193,7 @@ const Log = ({ userAuth }) => {
 								/>
 							</div>
 
-							<div className="form-row">
+							{/* <div className="form-row">
 								<label htmlFor="date">
 									Date: <small>(leave empty for today's date)</small>
 								</label>
@@ -204,10 +201,10 @@ const Log = ({ userAuth }) => {
 									type="date"
 									name="date"
 									id="date"
-									value={inputToValue(userEdit[currLogIndex]?.date)}
+									value={inputToValue(userEdit[currLogIndex]?.date, "value")}
 									onChange={handleDate}
 								/>
-							</div>
+							</div> */}
 
 							<div className="modal-buttons">
 								<button type="submit">update</button>

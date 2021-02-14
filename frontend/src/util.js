@@ -42,7 +42,7 @@ export const getTotalMins = arr => {
 	}, 0);
 };
 
-export const inputToValue = d => {
+export const inputToValue = (d, value) => {
 	const date = new Date(d);
 	const year = date.getFullYear();
 	let month = String(date.getMonth() + 1);
@@ -53,5 +53,8 @@ export const inputToValue = d => {
 	if (day < 10) {
 		day = day.padStart(2, "0");
 	}
+	console.log("original new date: ", date);
+	console.log("formatted day: ", day);
+	console.log("from: ", value);
 	return `${year}-${month}-${day}`;
 };
