@@ -3,15 +3,19 @@ import axios from "axios";
 import styled from "styled-components";
 import { DayMonthDate, minToHM } from "../util";
 import { apiURL } from "../api";
+import Loader from "react-loader-spinner";
 
 const Log = ({ userAuth }) => {
 	const [logList, setLogList] = useState({ log: [] });
+	const [isLoading, setIsLoading] = useState(true);
 
 	useEffect(() => {
+		setIsLoading(true);
 		axios
 			.post(`${apiURL}/logs/`, { userId: userAuth })
 			.then(response => {
 				setLogList({ log: response.data });
+				setIsLoading(false);
 			})
 			.catch(error => {
 				console.log(error);
@@ -20,24 +24,29 @@ const Log = ({ userAuth }) => {
 
 	return (
 		<StyledLog>
-			{logList.log.length !== 0
-				? logList.log.map(log => {
-						return (
-							<div className="log" key={log._id}>
-								<div className="top">
-									<p className="log-date">{DayMonthDate(log.date)}</p>
-								</div>
-								<div className="information">
-									<div className="information-left">
-										<p className="log-description">{log.description}</p>
-										{log.label && <p className="log-label">{log.label}</p>}
+			{isLoading ? (
+				<Loader type="BallTriangle" color="#fafafa" height={100} width={100} className="loader" />
+			) : (
+				<>
+					{logList.log.length !== 0 &&
+						logList.log.map(log => {
+							return (
+								<div className="log" key={log._id}>
+									<div className="top">
+										<p className="log-date">{DayMonthDate(log.date)}</p>
 									</div>
-									<p>Total: {minToHM(log.duration)}</p>
+									<div className="information">
+										<div className="information-left">
+											<p className="log-description">{log.description}</p>
+											{log.label && <p className="log-label">{log.label}</p>}
+										</div>
+										<p>Total: {minToHM(log.duration)}</p>
+									</div>
 								</div>
-							</div>
-						);
-				  })
-				: ""}
+							);
+						})}
+				</>
+			)}
 		</StyledLog>
 	);
 };

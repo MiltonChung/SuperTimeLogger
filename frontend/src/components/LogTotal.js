@@ -4,6 +4,7 @@ import { apiURL } from "../api";
 import styled from "styled-components";
 import TotalSVG from "../img/total_chart.svg";
 import { minToHM, getRandomInt, getTotalMins } from "../util";
+import Loader from "react-loader-spinner";
 
 const TotalTimeSpent = ({ log }) => {
 	const mins = getTotalMins(log);
@@ -65,13 +66,17 @@ const RandomQuote = ({ quote }) => {
 const LogTotal = ({ userAuth }) => {
 	const [logList, setLogList] = useState({ log: [] });
 	const [allLogs, setAllLogs] = useState({ log: [] });
+	const [isLoading1, setIsLoading1] = useState(true);
+	const [isLoading2, setIsLoading2] = useState(true);
 	const [randomQuote, setRandomQuote] = useState();
 
 	useEffect(() => {
+		setIsLoading1(true);
 		axios
 			.post(`${apiURL}/logs/`, { userId: userAuth })
 			.then(response => {
 				setLogList({ log: response.data });
+				setIsLoading1(false);
 			})
 			.catch(error => {
 				console.log(error);
@@ -79,10 +84,12 @@ const LogTotal = ({ userAuth }) => {
 	}, []);
 
 	useEffect(() => {
+		setIsLoading2(true);
 		axios
 			.post(`${apiURL}/logs/`, { userId: "" })
 			.then(response => {
 				setAllLogs({ log: response.data });
+				setIsLoading2(false);
 			})
 			.catch(error => {
 				console.log(error);
@@ -106,12 +113,21 @@ const LogTotal = ({ userAuth }) => {
 				{randomQuote && <RandomQuote quote={randomQuote} />}
 			</div>
 			<div className="total">
-				<div className="total-category">
-					{logList.log.length !== 0 && <TotalTimeSpent log={logList.log} />}
-				</div>
-				<div className="total-category">
-					{allLogs.log.length !== 0 && <CommunityTotal log={allLogs.log} />}
-				</div>
+				{isLoading1 ? (
+					<Loader type="ThreeDots" color="#3486c9" height={100} width={100} className="loader" />
+				) : (
+					<div className="total-category">
+						{logList.log.length !== 0 && <TotalTimeSpent log={logList.log} />}
+					</div>
+				)}
+
+				{isLoading2 ? (
+					<Loader type="ThreeDots" color="#3486c9" height={100} width={100} className="loader" />
+				) : (
+					<div className="total-category">
+						{allLogs.log.length !== 0 && <CommunityTotal log={allLogs.log} />}
+					</div>
+				)}
 			</div>
 		</StyledTotal>
 	);
