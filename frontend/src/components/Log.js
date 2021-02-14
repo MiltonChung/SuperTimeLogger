@@ -1,26 +1,125 @@
 import React, { useEffect, useState } from "react";
 import axios from "axios";
 import styled from "styled-components";
-import { DayMonthDate, minToHM } from "../util";
+import { DayMonthDate, minToHM, inputToValue } from "../util";
 import { apiURL } from "../api";
 import Loader from "react-loader-spinner";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { faEdit, faTrash } from "@fortawesome/free-solid-svg-icons";
+import ReactModal from "react-modal";
 
 const Log = ({ userAuth }) => {
-	const [logList, setLogList] = useState({ log: [] });
+	const [logList, setLogList] = useState({});
 	const [isLoading, setIsLoading] = useState(true);
+	const [updateLog, setUpdateLog] = useState("");
+	const [modalIsOpen, setIsOpen] = useState(false);
+	const [userEdit, setUserEdit] = useState({});
+	const [currLogId, setCurrLogId] = useState();
+	const [currLogIndex, setCurrLogIndex] = useState();
 
 	useEffect(() => {
 		setIsLoading(true);
 		axios
 			.post(`${apiURL}/logs/`, { userId: userAuth })
 			.then(response => {
-				setLogList({ log: response.data });
+				setLogList(response.data);
+				setUserEdit(response.data);
 				setIsLoading(false);
 			})
 			.catch(error => {
 				console.log(error);
 			});
-	}, []);
+	}, [updateLog, userAuth, modalIsOpen]);
+
+	function openModal(log) {
+		setIsOpen(true);
+		setCurrLogId(log._id);
+		setCurrLogIndex(userEdit?.findIndex(item => item._id === log._id));
+	}
+
+	function closeModal() {
+		setIsOpen(false);
+	}
+
+	const handleDescription = e => {
+		let newArr = {
+			...userEdit,
+			[currLogIndex]: {
+				...userEdit[currLogIndex],
+				description: e.target.value,
+			},
+		};
+		setUserEdit(newArr);
+	};
+
+	const handleDuration = e => {
+		let newArr = {
+			...userEdit,
+			[currLogIndex]: {
+				...userEdit[currLogIndex],
+				duration: e.target.value,
+			},
+		};
+		setUserEdit(newArr);
+	};
+
+	const handleLabel = e => {
+		let newArr = {
+			...userEdit,
+			[currLogIndex]: {
+				...userEdit[currLogIndex],
+				label: e.target.value,
+			},
+		};
+		setUserEdit(newArr);
+	};
+
+	const handleDate = e => {
+		let newArr = {
+			...userEdit,
+			[currLogIndex]: {
+				...userEdit[currLogIndex],
+				date: inputToValue(e.target.value),
+			},
+		};
+		setUserEdit(newArr);
+	};
+
+	const editLogSubmit = e => {
+		e.preventDefault();
+
+		if (e.target.description.value === "") {
+			return;
+		}
+		if (e.target.duration.value === "") {
+			return;
+		}
+		const date = e.target.date.value;
+
+		const form = {
+			description: e.target.description.value,
+			duration: e.target.duration.value,
+			label: e.target.label.value,
+			date: date,
+			userId: userAuth.uid,
+		};
+
+		console.log("edit form", form);
+		console.log(form.date);
+		axios.post(`${apiURL}/logs/update/${currLogId}`, form).then(response => {
+			[...logList][currLogIndex] = response;
+			setLogList(logList);
+			closeModal();
+		});
+	};
+
+	const deleteLog = log => {
+		console.log("delete clicked");
+		axios
+			.delete(`${apiURL}/logs/${log._id}`)
+			.then(data => setUpdateLog(data))
+			.catch(err => console.log(err));
+	};
 
 	return (
 		<StyledLog>
@@ -28,12 +127,16 @@ const Log = ({ userAuth }) => {
 				<Loader type="BallTriangle" color="#fafafa" height={100} width={100} className="loader" />
 			) : (
 				<>
-					{logList.log.length !== 0 &&
-						logList.log.map(log => {
+					{logList?.length !== 0 &&
+						logList.map(log => {
 							return (
 								<div className="log" key={log._id}>
 									<div className="top">
 										<p className="log-date">{DayMonthDate(log.date)}</p>
+										<div className="top-icons">
+											<FontAwesomeIcon icon={faEdit} onClick={() => openModal(log)} />
+											<FontAwesomeIcon icon={faTrash} onClick={() => deleteLog(log)} />
+										</div>
 									</div>
 									<div className="information">
 										<div className="information-left">
@@ -45,11 +148,80 @@ const Log = ({ userAuth }) => {
 								</div>
 							);
 						})}
+
+					<ReactModal
+						isOpen={modalIsOpen}
+						onRequestClose={closeModal}
+						contentLabel="Edit Log"
+						className="study-modal edit-log-modal"
+						overlayClassName="study-overlay">
+						<StyledForm onSubmit={editLogSubmit} className="edit-log-form">
+							<h3>Edit Log</h3>
+							<div className="form-row">
+								<label htmlFor="description">Description:*</label>
+								<input
+									type="text"
+									name="description"
+									id="description"
+									value={userEdit[currLogIndex]?.description}
+									onChange={handleDescription}
+									required
+									placeholder="Building a React app"
+								/>
+							</div>
+
+							<div className="form-row">
+								<label htmlFor="duration">Duration:*</label>
+								<input
+									type="number"
+									name="duration"
+									id="duration"
+									value={userEdit[currLogIndex]?.duration}
+									onChange={handleDuration}
+									min="0"
+									required
+									placeholder="...in minutes"
+								/>
+							</div>
+
+							<div className="form-row">
+								<label htmlFor="label">Label:</label>
+								<input
+									type="text"
+									name="label"
+									id="label"
+									placeholder="Coding"
+									value={userEdit[currLogIndex]?.label}
+									onChange={handleLabel}
+								/>
+							</div>
+
+							<div className="form-row">
+								<label htmlFor="date">
+									Date: <small>(leave empty for today's date)</small>
+								</label>
+								<input
+									type="date"
+									name="date"
+									id="date"
+									value={inputToValue(userEdit[currLogIndex]?.date)}
+									onChange={handleDate}
+								/>
+							</div>
+
+							<div className="modal-buttons">
+								<button type="submit">update</button>
+								<button onClick={closeModal}>cancel</button>
+							</div>
+						</StyledForm>
+					</ReactModal>
 				</>
 			)}
 		</StyledLog>
 	);
 };
+
+const StyledForm = styled.form``;
 
 const StyledLog = styled.div`
 	display: flex;
@@ -85,6 +257,29 @@ const StyledLog = styled.div`
 			border-radius: 5px 5px 0 0;
 			padding: 0.4rem 0.8rem;
 			color: white;
+			display: flex;
+			justify-content: space-between;
+			.top-icons {
+				.fa-edit {
+					color: #2a992a;
+					margin-right: 12px;
+					cursor: pointer;
+					font-size: 20px;
+					transition: all 0.25s;
+				}
+				.fa-edit:hover {
+					color: #248124;
+				}
+				.fa-trash {
+					color: #d63737;
+					cursor: pointer;
+					font-size: 20px;
+					transition: all 0.25s;
+				}
+				.fa-trash:hover {
+					color: #b43030;
+				}
+			}
 		}
 
 		.information {

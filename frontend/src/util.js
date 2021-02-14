@@ -1,9 +1,9 @@
 const monthNames = ["Jan", "Feb", "Mar", "Apr", "May", "June", "July", "Aug", "Sep", "Oct", "Nov", "Dec"];
-const dayNames = ["Sun", "Mon", "Tues", "Thur", "Fri", "Sat"];
+const dayNames = ["Mon", "Tues", "Wed", "Thur", "Fri", "Sat", "Sun"];
 
 export const DayMonthDate = d => {
 	const userDate = new Date(d);
-	const day = dayNames[userDate.getDay()];
+	const day = dayNames[userDate.getDay() - 1];
 	const month = monthNames[userDate.getMonth()];
 	const date = userDate.getDate();
 	return `${day}, ${month} ${date}`;
@@ -40,4 +40,18 @@ export const getTotalMins = arr => {
 	return arr.reduce((acc, curr) => {
 		return acc + curr.duration;
 	}, 0);
+};
+
+export const inputToValue = d => {
+	const date = new Date(d);
+	const year = date.getFullYear();
+	let month = String(date.getMonth() + 1);
+	if (month < 10) {
+		month = month.padStart(2, "0");
+	}
+	let day = String(date.getDate());
+	if (day < 10) {
+		day = day.padStart(2, "0");
+	}
+	return `${year}-${month}-${day}`;
 };

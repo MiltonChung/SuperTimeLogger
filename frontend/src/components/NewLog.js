@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useRef } from "react";
 import axios from "axios";
 import { apiURL } from "../api";
 import styled from "styled-components";
@@ -7,6 +7,8 @@ import { useHistory } from "react-router-dom";
 const NewLog = ({ userAuth }) => {
 	const [errMsgDescr, setErrMsgDescr] = useState("");
 	const [errMsgDur, setErrMsgDur] = useState("");
+
+	const formRef = useRef();
 
 	let history = useHistory();
 
@@ -28,18 +30,18 @@ const NewLog = ({ userAuth }) => {
 			date: date,
 			userId: userAuth.uid,
 		};
+		console.log(form);
 
 		if (form.description === "") {
 			setErrMsgDescr("Please enter a description!");
-			if (form.duration === "") {
-				setErrMsgDur("Please enter a duration!");
-				return;
-			}
-			return;
+		} else {
+			setErrMsgDescr("");
 		}
 		if (form.duration === "") {
 			setErrMsgDur("Please enter a duration!");
 			return;
+		} else {
+			setErrMsgDur("");
 		}
 
 		axios
@@ -51,9 +53,15 @@ const NewLog = ({ userAuth }) => {
 			.catch(err => console.log(err));
 	};
 
+	const resetForm = e => {
+		e.preventDefault();
+		e.stopPropagation();
+		formRef.current.reset();
+	};
+
 	return (
 		<StyledNewLog>
-			<form onSubmit={submitForm}>
+			<form onSubmit={submitForm} ref={formRef}>
 				<div className="form-row">
 					<label htmlFor="descr">Description:*</label>
 					<input type="text" name="descr" id="descr" placeholder="Building a React app" />
@@ -79,7 +87,8 @@ const NewLog = ({ userAuth }) => {
 				</div>
 
 				<div className="modal-buttons">
-					<button type="submit">Add</button>
+					<button type="submit">add</button>
+					<button onClick={resetForm}>reset</button>
 				</div>
 			</form>
 		</StyledNewLog>
@@ -110,9 +119,6 @@ const StyledNewLog = styled.div`
 			font-size: 16px;
 			width: 450px;
 		}
-		button {
-			margin: 0 !important;
-		}
 		.form-error-msg {
 			small {
 				color: #cf0101;
@@ -120,6 +126,9 @@ const StyledNewLog = styled.div`
 				font-weight: 700;
 				letter-spacing: 1px;
 			}
+		}
+		button[type="submit"] {
+			margin-right: 1rem;
 		}
 	}
 `;

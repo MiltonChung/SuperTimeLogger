@@ -46,12 +46,13 @@ logRouter
 	});
 
 logRouter.route("/update/:id").post((req, res) => {
+	console.log(req.body);
 	Log.findById(req.params.id)
 		.then(log => {
 			log.description = req.body.description;
 			log.label = req.body.label;
-			log.duration = Number(req.body.duration);
-			log.date = Date.parse(req.body.date);
+			log.duration = req.body.duration;
+			log.date = req.body.date;
 			log.userId = req.body.userId;
 
 			log.save()
