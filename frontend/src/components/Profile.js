@@ -11,14 +11,15 @@ import EditProfileSVG from "../img/edit-profile.svg";
 const Profile = ({ userAuth, userInfo, setUserInfo }) => {
 	const [modalIsOpen, setIsOpen] = useState(false);
 	const [userEdit, setUserEdit] = useState({});
+	const [errMsg, setErrMsg] = useState("");
 
 	useEffect(async () => {
 		if (userAuth !== null) {
-			console.log("PROFILE: ", userAuth);
 			const result = await axios(`${apiURL}/users/${userAuth.uid}`);
 			setUserInfo(result.data.user);
 			setUserEdit(result.data.user);
 		}
+		setErrMsg("");
 	}, [userAuth, modalIsOpen, setUserInfo]);
 
 	function openModal() {
@@ -48,22 +49,26 @@ const Profile = ({ userAuth, userInfo, setUserInfo }) => {
 
 	const editProfile = async e => {
 		e.preventDefault();
+
+		if (e.target.email.value === "") {
+			setErrMsg("Please enter an email!");
+			return;
+		}
 		const form = {
-			name: e.target[0].value,
-			title: e.target[1].value,
-			bio: e.target[2].value,
+			name: e.target.name.value,
+			title: e.target.title.value,
+			bio: e.target.bio.value,
 			userFirebaseUID: userAuth.uid,
-			email: e.target[3].value,
+			email: e.target.email.value,
 		};
 
 		try {
-			const update = await axios.post(`${apiURL}/users/update/${userAuth.uid}`, form);
-			const updateEmailRes = await auth.currentUser.updateEmail(form.email);
-			console.log("PROFILE update: ", update);
-			console.log("PROFILE updateEmailRes: ", updateEmailRes);
+			await axios.post(`${apiURL}/users/update/${userAuth.uid}`, form);
+			await auth.currentUser.updateEmail(form.email);
 			closeModal();
-		} catch (e) {
-			console.log(`Error updating user info: ${e}`);
+		} catch (err) {
+			console.log(`Error updating user info: ${err}`);
+			setErrMsg(err.message);
 		}
 	};
 
@@ -113,11 +118,11 @@ const Profile = ({ userAuth, userInfo, setUserInfo }) => {
 					<img src={EditProfileSVG} alt="svg" />
 					<h3>Edit Profile</h3>
 					<div className="form-row">
-						<label htmlFor="fullname">Full Name</label>
+						<label htmlFor="name">Full Name:</label>
 						<input
 							type="text"
-							name="fullname"
-							id="fullname"
+							name="name"
+							id="name"
 							value={userEdit?.name}
 							onChange={handleName}
 							placeholder="Full Name"
@@ -125,7 +130,7 @@ const Profile = ({ userAuth, userInfo, setUserInfo }) => {
 					</div>
 
 					<div className="form-row">
-						<label htmlFor="title">Title</label>
+						<label htmlFor="title">Title:</label>
 						<input
 							type="text"
 							name="title"
@@ -137,7 +142,7 @@ const Profile = ({ userAuth, userInfo, setUserInfo }) => {
 					</div>
 
 					<div className="form-row">
-						<label htmlFor="bio">Bio</label>
+						<label htmlFor="bio">Short bio:</label>
 						<textarea
 							type="text"
 							name="bio"
@@ -152,7 +157,7 @@ const Profile = ({ userAuth, userInfo, setUserInfo }) => {
 					</div>
 
 					<div className="form-row">
-						<label htmlFor="email">Email</label>
+						<label htmlFor="email">Email: *</label>
 						<input
 							type="text"
 							name="email"
@@ -162,6 +167,8 @@ const Profile = ({ userAuth, userInfo, setUserInfo }) => {
 							placeholder="Email"
 						/>
 					</div>
+
+					<div className="form-error-msg">{errMsg && <small>{errMsg}</small>}</div>
 
 					<div className="modal-buttons">
 						<button type="submit">update</button>

@@ -2,9 +2,13 @@ import React, { useState } from "react";
 import axios from "axios";
 import { apiURL } from "../api";
 import styled from "styled-components";
+import { useHistory } from "react-router-dom";
 
 const NewLog = ({ userAuth }) => {
-	const [form, setForm] = useState([]);
+	const [errMsgDescr, setErrMsgDescr] = useState("");
+	const [errMsgDur, setErrMsgDur] = useState("");
+
+	let history = useHistory();
 
 	const submitForm = e => {
 		e.preventDefault();
@@ -19,12 +23,32 @@ const NewLog = ({ userAuth }) => {
 
 		const form = {
 			description: e.target.descr.value,
-			label: label,
 			duration: e.target.dur.value,
+			label: label,
 			date: date,
 			userId: userAuth.uid,
 		};
-		axios.post(`${apiURL}/logs/add`, form).then(res => console.log(res.data));
+
+		if (form.description === "") {
+			setErrMsgDescr("Please enter a description!");
+			if (form.duration === "") {
+				setErrMsgDur("Please enter a duration!");
+				return;
+			}
+			return;
+		}
+		if (form.duration === "") {
+			setErrMsgDur("Please enter a duration!");
+			return;
+		}
+
+		axios
+			.post(`${apiURL}/logs/add`, form)
+			.then(res => {
+				console.log(res.data);
+				history.push("/");
+			})
+			.catch(err => console.log(err));
 	};
 
 	return (
@@ -32,12 +56,14 @@ const NewLog = ({ userAuth }) => {
 			<form onSubmit={submitForm}>
 				<div className="form-row">
 					<label htmlFor="descr">Description:*</label>
-					<input type="text" name="descr" id="descr" placeholder="Building a React app" required />
+					<input type="text" name="descr" id="descr" placeholder="Building a React app" />
+					<div className="form-error-msg">{errMsgDescr && <small>{errMsgDescr}</small>}</div>
 				</div>
 
 				<div className="form-row">
 					<label htmlFor="dur">Duration:*</label>
-					<input type="number" name="dur" id="dur" min="0" placeholder="...in minutes" required />
+					<input type="number" name="dur" id="dur" min="0" placeholder="...in minutes" />
+					<div className="form-error-msg">{errMsgDur && <small>{errMsgDur}</small>}</div>
 				</div>
 
 				<div className="form-row">
@@ -86,6 +112,14 @@ const StyledNewLog = styled.div`
 		}
 		button {
 			margin: 0 !important;
+		}
+		.form-error-msg {
+			small {
+				color: #cf0101;
+				font-size: 14px;
+				font-weight: 700;
+				letter-spacing: 1px;
+			}
 		}
 	}
 `;

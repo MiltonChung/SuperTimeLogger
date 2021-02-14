@@ -62,15 +62,15 @@ const GlobalStyles = createGlobalStyle`
     border-radius: 10px;
     outline: none;
     overflow-y: auto;
-    .form-error-msg {
-        margin-left: 5px;
-        text-align: left;
-        small {
-          font-size: 13px;
-          color: red;
-        }
-      }
 	}
+  .form-error-msg {
+    margin-left: 5px;
+    text-align: left;
+    small {
+      font-size: 13px;
+      color: red;
+    }
+  }
   .login-modal {
     form {
       display: flex;
