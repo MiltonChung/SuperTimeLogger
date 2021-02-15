@@ -139,7 +139,6 @@ const StyledDashboard = styled.div`
 
 	@media only screen and (max-width: 800px) {
 		display: flex;
-		/* grid-template-rows: 1fr 2fr; */
 		flex-direction: column;
 		max-height: 97%;
 		height: 90vh;
@@ -166,9 +165,10 @@ const StyledDashboard = styled.div`
 			padding: 1rem;
 		}
 		.landing {
-			display: grid;
+			display: flex;
+			flex-direction: column;
+			justify-content: space-around;
 			grid-template-columns: unset;
-			grid-template-rows: 1fr 1fr;
 			width: 100%;
 			height: 100%;
 			.userForms {
@@ -180,8 +180,9 @@ const StyledDashboard = styled.div`
 			}
 			img {
 				justify-self: center;
+				align-self: center;
 				width: 90%;
-				height: 90%;
+				height: auto;
 			}
 		}
 	}
