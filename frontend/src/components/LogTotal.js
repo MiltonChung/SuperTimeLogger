@@ -148,7 +148,9 @@ const StyledTotal = styled.div`
 	align-items: center;
 	margin-top: 1rem;
 	height: 100%;
-	overflow-y: auto;
+	overflow: auto;
+	position: relative;
+	min-height: 0;
 
 	img {
 		width: 40%;
@@ -206,6 +208,10 @@ const StyledTotal = styled.div`
 	}
 
 	@media only screen and (max-width: 780px) {
+		.img-quote {
+			margin: 1rem 0;
+			min-height: 350px;
+		}
 		img {
 			width: 30%;
 			min-width: unset;
@@ -226,6 +232,7 @@ const StyledTotal = styled.div`
 			width: 100%;
 			margin-top: 3rem;
 			grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+			min-height: 320px;
 
 			&-category {
 				box-shadow: unset;
