@@ -257,7 +257,7 @@ const StyledLog = styled.div`
 	height: 100%;
 	margin-top: 1rem;
 	padding-right: 0.5rem;
-	overflow: auto;
+	overflow: scroll;
 
 	.log {
 		width: 100%;
@@ -268,7 +268,7 @@ const StyledLog = styled.div`
 		margin-bottom: 1rem;
 		font-size: 17px;
 		box-shadow: 2px 2px 5px rgba(0, 0, 0, 0.2);
-		height: fit-content;
+		/* height: fit-content; */
 		.top {
 			background: #59afff;
 			border-radius: 5px 5px 0 0;

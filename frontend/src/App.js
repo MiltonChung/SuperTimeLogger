@@ -91,7 +91,7 @@ const StyledDashboard = styled.div`
 	max-height: 700px;
 	width: 92vw;
 	max-width: 1350px;
-	overflow: auto;
+	overflow: scroll;
 
 	.loader {
 		height: 100%;
