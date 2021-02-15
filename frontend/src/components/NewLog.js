@@ -132,6 +132,34 @@ const StyledNewLog = styled.div`
 			margin-right: 1rem;
 		}
 	}
+
+	@media only screen and (max-width: 600px) {
+		form {
+			margin-top: 0.5rem;
+			label {
+				font-size: 17px;
+			}
+			.form-row {
+				width: 100%;
+			}
+
+			input[type="text"],
+			input[type="password"],
+			input[type="date"],
+			input[type="number"],
+			textarea[type="text"] {
+				width: 100%;
+			}
+			.form-error-msg {
+				small {
+					color: #ca0707;
+				}
+			}
+			button[type="submit"] {
+				margin-right: 1rem;
+			}
+		}
+	}
 `;
 
 export default NewLog;

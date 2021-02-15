@@ -137,15 +137,38 @@ const StyledDashboard = styled.div`
 		padding: 1rem;
 	}
 
-	@media only screen and (max-width: 768px) {
-		height: 95vh;
-		width: 95vw;
+	@media only screen and (max-width: 800px) {
+		display: flex;
+		flex-direction: column;
+		max-height: 97%;
+		height: 90vh;
+		width: 95%;
+		background: rgba(255, 255, 255, 0.068);
+		border-radius: 12px;
+		margin: unset;
+		padding: 1.4rem 2rem;
 
+		.profile {
+			height: 100%;
+			width: 100%;
+		}
+		.vertical-line {
+			display: none;
+		}
+		.logs-info {
+			flex: 3;
+			width: 100%;
+			height: 100%;
+			display: flex;
+			flex-direction: column;
+			padding: 1rem;
+		}
 		.landing {
 			display: grid;
 			grid-template-columns: unset;
-			grid-template-rows: 1fr 2fr;
+			grid-template-rows: 1fr 1fr;
 			width: 100%;
+			height: 100%;
 			.userForms {
 				display: flex;
 				flex-direction: column;
@@ -158,6 +181,13 @@ const StyledDashboard = styled.div`
 				width: 90%;
 				height: 90%;
 			}
+		}
+	}
+
+	@media only screen and (max-width: 580px) {
+		padding: 0.8rem;
+		.logs-info {
+			padding: 0;
 		}
 	}
 `;

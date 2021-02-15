@@ -222,10 +222,10 @@ const StyledProfile = styled.div`
 			margin-top: 0.5rem;
 			font-weight: 700;
 			font-size: 34px;
-			line-height: 40px;
+			line-height: 35px;
 			letter-spacing: 0.03em;
 			text-align: center;
-			margin-bottom: 1rem;
+			margin-bottom: 0.5rem;
 		}
 
 		.short-line {
@@ -296,6 +296,7 @@ const StyledProfile = styled.div`
 	@media only screen and (max-width: 1000px) {
 		.profile-info {
 			align-items: flex-start;
+			margin-bottom: 0.6rem;
 			img {
 				width: 130px;
 				height: 130px;
@@ -304,7 +305,6 @@ const StyledProfile = styled.div`
 
 			h2 {
 				margin-top: 1.5rem;
-				margin-bottom: 1.5rem;
 				font-size: 28px;
 				line-height: 31px;
 				text-align: left;
@@ -328,6 +328,105 @@ const StyledProfile = styled.div`
 				width: 100%;
 				text-align: left;
 				font-size: 15px;
+			}
+		}
+
+		.account-info {
+			align-items: flex-start;
+			justify-content: space-between;
+
+			.edit-profile {
+				width: 100px;
+				font-size: 14px;
+			}
+			.sign-out {
+				width: 100px;
+				font-size: 14px;
+			}
+		}
+	}
+
+	@media only screen and (max-width: 800px) {
+		flex-direction: row;
+		align-items: center;
+		justify-content: space-between;
+		padding: 0;
+		width: 100%;
+
+		.profile-info {
+			flex-direction: row;
+			align-items: center;
+
+			img {
+				width: 50px;
+				height: 50px;
+			}
+
+			h2 {
+				margin-top: 0;
+				margin-bottom: 0rem;
+				margin: 0 0.4rem;
+				font-size: 28px;
+			}
+
+			.short-line,
+			h3,
+			p {
+				display: none;
+			}
+		}
+
+		.account-info {
+			justify-content: center;
+			flex-direction: column;
+			align-items: center;
+			flex-direction: row;
+			margin-right: 5px;
+
+			.edit-profile {
+				padding: 0.5rem 0rem;
+				margin-bottom: 0;
+				width: 80px;
+				font-size: 14px;
+				box-shadow: unset;
+			}
+			.sign-out {
+				padding: 0.5rem 0rem;
+				margin-bottom: 0;
+				width: 80px;
+				font-size: 14px;
+				margin-left: 1rem;
+				box-shadow: unset;
+			}
+			p {
+				display: none;
+			}
+		}
+	}
+
+	@media only screen and (max-width: 580px) {
+		.profile-info {
+			img {
+				width: 40px;
+				height: 40px;
+			}
+			h2 {
+				font-size: 18px;
+				line-height: 20px;
+			}
+		}
+
+		.account-info {
+			.edit-profile {
+				padding: 0.5rem;
+				width: unset;
+				font-size: 13px;
+			}
+			.sign-out {
+				padding: 0.5rem;
+				width: unset;
+				font-size: 13px;
+				margin-left: 0.3rem;
 			}
 		}
 	}

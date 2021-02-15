@@ -118,6 +118,8 @@ const Log = ({ userAuth }) => {
 
 	const openDeleteModal = log => {
 		setIsDeleteModalOpen(true);
+		setCurrLogId(log._id);
+		setCurrLogIndex(userEdit?.findIndex(item => item._id === log._id));
 	};
 
 	return (
@@ -154,7 +156,7 @@ const Log = ({ userAuth }) => {
 						contentLabel="Edit Log"
 						className="study-modal edit-log-modal"
 						overlayClassName="study-overlay">
-						<StyledForm onSubmit={editLogSubmit} className="edit-log-form">
+						<form onSubmit={editLogSubmit} className="edit-log-form">
 							<h3>Edit Log</h3>
 							<div className="form-row">
 								<label htmlFor="description">Description:*</label>
@@ -212,7 +214,7 @@ const Log = ({ userAuth }) => {
 								<button type="submit">update</button>
 								<button onClick={closeModal}>cancel</button>
 							</div>
-						</StyledForm>
+						</form>
 					</ReactModal>
 
 					<ReactModal
@@ -229,7 +231,7 @@ const Log = ({ userAuth }) => {
 									className="alert-delete"
 									onClick={() => {
 										axios
-											.delete(`${apiURL}/logs/${userEdit[0]?._id}`)
+											.delete(`${apiURL}/logs/${userEdit[currLogIndex]?._id}`)
 											.then(data => setUpdateLog(data))
 											.catch(err => console.log(err));
 										closeModal();
@@ -248,8 +250,6 @@ const Log = ({ userAuth }) => {
 	);
 };
 
-const StyledForm = styled.form``;
-
 const StyledLog = styled.div`
 	display: flex;
 	flex-direction: column;
@@ -259,16 +259,6 @@ const StyledLog = styled.div`
 	padding-right: 0.5rem;
 	overflow-y: auto;
 
-	&::-webkit-scrollbar {
-		width: 0.5rem;
-	}
-	&::-webkit-scrollbar-thumb {
-		background: rgba(51, 51, 51, 0.32);
-		border-radius: 15px;
-	}
-	&::-webkit-scrollbar-track {
-		background: transparent;
-	}
 	.log {
 		width: 100%;
 		display: flex;
@@ -278,7 +268,7 @@ const StyledLog = styled.div`
 		margin-bottom: 1rem;
 		font-size: 17px;
 		box-shadow: 2px 2px 5px rgba(0, 0, 0, 0.2);
-
+		height: fit-content;
 		.top {
 			background: #59afff;
 			border-radius: 5px 5px 0 0;
@@ -319,12 +309,36 @@ const StyledLog = styled.div`
 
 				.log-description {
 					margin-right: 1.5rem;
+					overflow: hidden;
+					text-overflow: ellipsis;
 				}
 				.log-label {
 					font-size: 13px;
 					background: rgba(21, 29, 231, 0.32);
 					padding: 1px 4px 0 4px;
 					border-radius: 5px;
+					overflow: hidden;
+					text-overflow: ellipsis;
+					margin-right: 5px;
+				}
+			}
+		}
+	}
+	@media only screen and (max-width: 640px) {
+		.log {
+			font-size: 14.5px;
+			height: fit-content;
+			.top {
+				padding: 0.4rem 0.5rem;
+				align-items: center;
+				.top-icons {
+					.fa-edit {
+						margin-right: 15px;
+						font-size: 16px;
+					}
+					.fa-trash {
+						font-size: 16px;
+					}
 				}
 			}
 		}
