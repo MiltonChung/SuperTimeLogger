@@ -257,7 +257,7 @@ const StyledLog = styled.div`
 	height: 100%;
 	margin-top: 1rem;
 	padding-right: 0.5rem;
-	overflow: scroll;
+	overflow: auto;
 	min-height: 0;
 
 	.log {
