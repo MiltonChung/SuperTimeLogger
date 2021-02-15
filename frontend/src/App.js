@@ -187,9 +187,9 @@ const StyledDashboard = styled.div`
 	}
 
 	@media only screen and (max-width: 580px) {
-		padding: 0.8rem;
+		padding: 1rem;
 		.logs-info {
-			padding: 0;
+			padding: 1rem 0;
 		}
 	}
 `;
