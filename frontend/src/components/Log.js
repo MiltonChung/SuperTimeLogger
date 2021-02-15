@@ -94,8 +94,7 @@ const Log = ({ userAuth }) => {
 		if (e.target.duration.value === "") {
 			return;
 		}
-		// let date = new Date(e.target.date.value).toLocaleDateString();
-		console.log(typeof e.target.date.value);
+
 		const form = {
 			description: e.target.description.value,
 			duration: e.target.duration.value,
@@ -104,7 +103,7 @@ const Log = ({ userAuth }) => {
 			userId: userAuth.uid,
 		};
 
-		console.log("edit form", form);
+		// console.log("edit form", form);
 		axios
 			.post(`${apiURL}/logs/update/${currLogId}`, form)
 			.then(response => {

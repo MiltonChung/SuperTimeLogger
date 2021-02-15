@@ -30,7 +30,6 @@ const NewLog = ({ userAuth }) => {
 			date: date,
 			userId: userAuth.uid,
 		};
-		console.log("NEW LOG DATE: ", date);
 
 		if (form.description === "") {
 			setErrMsgDescr("Please enter a description!");
@@ -47,7 +46,7 @@ const NewLog = ({ userAuth }) => {
 		axios
 			.post(`${apiURL}/logs/add`, form)
 			.then(res => {
-				console.log(res.data);
+				// console.log(res.data);
 				history.push("/");
 			})
 			.catch(err => console.log(err));
