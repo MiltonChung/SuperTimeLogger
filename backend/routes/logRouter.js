@@ -18,7 +18,7 @@ logRouter.route("/").post((req, res, next) => {
 logRouter.route("/add").post((req, res, next) => {
 	const description = req.body.description;
 	const label = req.body.label;
-	const date = Date.parse(req.body.date);
+	const date = req.body.date;
 	const duration = Number(req.body.duration);
 	const userId = req.body.userId;
 

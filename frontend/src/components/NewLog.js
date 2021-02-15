@@ -15,7 +15,7 @@ const NewLog = ({ userAuth }) => {
 	const submitForm = e => {
 		e.preventDefault();
 		let label = "";
-		let date = new Date();
+		let date = new Date().toLocaleDateString();
 		if (e.target.label.value !== "") {
 			label = e.target.label.value;
 		}
