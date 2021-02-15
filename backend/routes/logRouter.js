@@ -23,6 +23,7 @@ logRouter.route("/add").post((req, res, next) => {
 	const userId = req.body.userId;
 
 	const newLog = new Log({ description, label, date, duration, userId });
+
 	newLog
 		.save()
 		.then(log => res.json(log))
@@ -51,8 +52,10 @@ logRouter.route("/update/:id").post((req, res) => {
 			log.description = req.body.description;
 			log.label = req.body.label;
 			log.duration = req.body.duration;
-			// log.date = req.body.date;
+			log.date = req.body.date;
 			log.userId = req.body.userId;
+
+			console.log(log);
 
 			log.save()
 				.then(log => res.json(log))

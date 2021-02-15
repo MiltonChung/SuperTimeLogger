@@ -30,7 +30,7 @@ const NewLog = ({ userAuth }) => {
 			date: date,
 			userId: userAuth.uid,
 		};
-		console.log(form);
+		console.log("NEW LOG DATE: ", date);
 
 		if (form.description === "") {
 			setErrMsgDescr("Please enter a description!");

@@ -94,21 +94,25 @@ const Log = ({ userAuth }) => {
 		if (e.target.duration.value === "") {
 			return;
 		}
-
+		// let date = new Date(e.target.date.value).toLocaleDateString();
+		console.log(typeof e.target.date.value);
 		const form = {
 			description: e.target.description.value,
 			duration: e.target.duration.value,
 			label: e.target.label.value,
-			// date: e.target.date.value,
+			date: e.target.date.value,
 			userId: userAuth.uid,
 		};
 
 		console.log("edit form", form);
-		axios.post(`${apiURL}/logs/update/${currLogId}`, form).then(response => {
-			[...logList][currLogIndex] = response;
-			setLogList(logList);
-			closeModal();
-		});
+		axios
+			.post(`${apiURL}/logs/update/${currLogId}`, form)
+			.then(response => {
+				[...logList][currLogIndex] = response;
+				setLogList(logList);
+				closeModal();
+			})
+			.catch(err => console.log(err));
 	};
 
 	const deleteLog = log => {
@@ -193,10 +197,8 @@ const Log = ({ userAuth }) => {
 								/>
 							</div>
 
-							{/* <div className="form-row">
-								<label htmlFor="date">
-									Date:
-								</label>
+							<div className="form-row">
+								<label htmlFor="date">Date:</label>
 								<input
 									type="date"
 									name="date"
@@ -204,7 +206,7 @@ const Log = ({ userAuth }) => {
 									value={inputToValue(userEdit[currLogIndex]?.date, "value")}
 									onChange={handleDate}
 								/>
-							</div> */}
+							</div>
 
 							<div className="modal-buttons">
 								<button type="submit">update</button>
