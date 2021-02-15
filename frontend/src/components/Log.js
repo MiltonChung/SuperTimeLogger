@@ -257,7 +257,7 @@ const StyledLog = styled.div`
 	height: 100%;
 	margin-top: 1rem;
 	padding-right: 0.5rem;
-	overflow-y: auto;
+	overflow: auto;
 
 	.log {
 		width: 100%;
@@ -324,10 +324,12 @@ const StyledLog = styled.div`
 			}
 		}
 	}
+
 	@media only screen and (max-width: 640px) {
+		min-height: 500px;
 		.log {
 			font-size: 14.5px;
-			height: fit-content;
+			/* min-height: 75px; */
 			.top {
 				padding: 0.4rem 0.5rem;
 				align-items: center;
