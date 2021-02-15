@@ -269,7 +269,6 @@ const StyledLog = styled.div`
 		margin-bottom: 1rem;
 		font-size: 17px;
 		box-shadow: 2px 2px 5px rgba(0, 0, 0, 0.2);
-		min-height: 0;
 		.top {
 			background: #59afff;
 			border-radius: 5px 5px 0 0;
@@ -330,7 +329,7 @@ const StyledLog = styled.div`
 		min-height: 500px;
 		.log {
 			font-size: 14.5px;
-			/* min-height: 75px; */
+			min-height: 75px;
 			.top {
 				padding: 0.4rem 0.5rem;
 				align-items: center;
