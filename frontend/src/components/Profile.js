@@ -352,6 +352,7 @@ const StyledProfile = styled.div`
 		justify-content: space-between;
 		padding: 0;
 		width: 100%;
+		height: fit-content;
 
 		.profile-info {
 			flex-direction: row;

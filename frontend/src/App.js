@@ -139,6 +139,7 @@ const StyledDashboard = styled.div`
 
 	@media only screen and (max-width: 800px) {
 		display: flex;
+		/* grid-template-rows: 1fr 2fr; */
 		flex-direction: column;
 		max-height: 97%;
 		height: 90vh;
@@ -149,14 +150,15 @@ const StyledDashboard = styled.div`
 		padding: 1.4rem 2rem;
 
 		.profile {
-			height: 100%;
+			height: fit-content;
 			width: 100%;
+			flex: unset;
 		}
 		.vertical-line {
 			display: none;
 		}
 		.logs-info {
-			flex: 3;
+			flex: unset;
 			width: 100%;
 			height: 100%;
 			display: flex;

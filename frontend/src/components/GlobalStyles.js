@@ -33,16 +33,15 @@ const GlobalStyles = createGlobalStyle`
   body {
     font-family: 'Lato', sans-serif;
     min-height: 100vh;
-    min-width: 100vw;
-    /* background: linear-gradient(180deg, #59AFFF 0%, #5B00F0 100%); */
+    width: 100%;
     background: url('../../background.jpg');
     background-position: center;
     background-size: cover;
     background-repeat: no-repeat;
   }
   #root {
-    min-height: 100vh;
-    min-width: 100vw;
+    height: 98vh;
+    width: 100%;
     display: flex;
     justify-content: center;
     align-items: center;
