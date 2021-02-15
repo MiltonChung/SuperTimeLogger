@@ -3,6 +3,7 @@ import axios from "axios";
 import { apiURL } from "../api";
 import styled from "styled-components";
 import { useHistory } from "react-router-dom";
+import { inputToValue } from "../util";
 
 const NewLog = ({ userAuth }) => {
 	const [errMsgDescr, setErrMsgDescr] = useState("");
@@ -15,7 +16,8 @@ const NewLog = ({ userAuth }) => {
 	const submitForm = e => {
 		e.preventDefault();
 		let label = "";
-		let date = new Date().toLocaleDateString();
+		let date = inputToValue(new Date());
+		console.log(date);
 		if (e.target.label.value !== "") {
 			label = e.target.label.value;
 		}
