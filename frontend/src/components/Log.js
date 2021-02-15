@@ -258,11 +258,11 @@ const StyledLog = styled.div`
 	margin-top: 1rem;
 	padding-right: 0.5rem;
 	overflow: auto;
-	min-height: 0;
 
 	.log {
 		width: 100%;
-		height: fit-content;
+		min-height: fit-content;
+		max-height: 200px;
 		display: flex;
 		flex-direction: column;
 		border-radius: 5px;
@@ -270,6 +270,7 @@ const StyledLog = styled.div`
 		margin-bottom: 1rem;
 		font-size: 17px;
 		box-shadow: 2px 2px 5px rgba(0, 0, 0, 0.2);
+
 		.top {
 			background: #59afff;
 			border-radius: 5px 5px 0 0;
@@ -330,9 +331,6 @@ const StyledLog = styled.div`
 		min-height: 500px;
 		.log {
 			font-size: 14.5px;
-			/* min-height: 75px; */
-			max-height: 150px;
-			height: 100%;
 			.top {
 				padding: 0.4rem 0.5rem;
 				align-items: center;
