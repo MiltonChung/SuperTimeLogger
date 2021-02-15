@@ -92,6 +92,7 @@ const StyledDashboard = styled.div`
 	width: 92vw;
 	max-width: 1350px;
 	overflow: scroll;
+	position: relative;
 
 	.loader {
 		height: 100%;
@@ -135,6 +136,7 @@ const StyledDashboard = styled.div`
 		display: flex;
 		flex-direction: column;
 		padding: 1rem;
+		position: relative;
 	}
 
 	@media only screen and (max-width: 800px) {

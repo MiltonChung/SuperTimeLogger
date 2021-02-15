@@ -38,8 +38,10 @@ const GlobalStyles = createGlobalStyle`
     background-position: center;
     background-size: cover;
     background-repeat: no-repeat;
+    position: relative;
   }
   #root {
+    position: relative;
     height: 98vh;
     width: 100%;
     display: flex;
