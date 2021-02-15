@@ -116,17 +116,25 @@ const LogTotal = ({ userAuth }) => {
 				{isLoading1 ? (
 					<Loader type="ThreeDots" color="#3486c9" height={100} width={100} className="loader" />
 				) : (
-					<div className="total-category">
-						{logList.log.length !== 0 && <TotalTimeSpent log={logList.log} />}
-					</div>
+					<>
+						{logList.log.length !== 0 && (
+							<div className="total-category">
+								<TotalTimeSpent log={logList.log} />
+							</div>
+						)}
+					</>
 				)}
 
 				{isLoading2 ? (
 					<Loader type="ThreeDots" color="#3486c9" height={100} width={100} className="loader" />
 				) : (
-					<div className="total-category">
-						{allLogs.log.length !== 0 && <CommunityTotal log={allLogs.log} />}
-					</div>
+					<>
+						{allLogs.log.length !== 0 && (
+							<div className="total-category">
+								<CommunityTotal log={allLogs.log} />
+							</div>
+						)}
+					</>
 				)}
 			</div>
 		</StyledTotal>
