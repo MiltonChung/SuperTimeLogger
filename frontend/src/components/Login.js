@@ -92,6 +92,12 @@ const StyledLogin = styled.div`
 		font-size: 24px;
 		margin-bottom: 1rem;
 		width: 190px;
+
+		@media only screen and (max-width: 450px) {
+			width: 175px;
+			font-size: 19px;
+			padding: 0.9rem 2rem;
+		}
 	}
 	button:hover {
 		background: rgb(136, 56, 173);

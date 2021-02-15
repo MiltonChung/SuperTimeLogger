@@ -128,7 +128,7 @@ const Signup = ({ userAuth, setUserInfo }) => {
 								name="toggle-password"
 								onClick={togglePassword}
 							/>
-							<label for="toggle-password">Show Password</label>
+							<label htmlFor="toggle-password">Show Password</label>
 						</div>
 					</div>
 
@@ -174,6 +174,11 @@ const StyledSignUp = styled.div`
 		font-size: 24px;
 		margin-bottom: 2.5rem;
 		width: 190px;
+
+		@media only screen and (max-width: 450px) {
+			width: 175px;
+			font-size: 19px;
+		}
 	}
 	button:hover {
 		background: #488ccc;

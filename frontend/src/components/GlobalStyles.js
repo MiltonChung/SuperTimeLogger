@@ -5,6 +5,18 @@ const GlobalStyles = createGlobalStyle`
     margin: 0;
     padding: 0;
     box-sizing: border-box;
+
+    &::-webkit-scrollbar {
+		width: 0.5rem;
+    height: 0.5rem;
+    }
+    &::-webkit-scrollbar-thumb {
+      background: rgba(51, 51, 51, 0.32);
+      border-radius: 15px;
+    }
+    &::-webkit-scrollbar-track {
+      background: transparent;
+    }
   }
   html,.study-modal {
     &::-webkit-scrollbar {
@@ -62,7 +74,23 @@ const GlobalStyles = createGlobalStyle`
     border-radius: 10px;
     outline: none;
     overflow-y: auto;
+
+    @media only screen and (max-width: 450px) {
+      width: 95%;
+      padding: 2rem 1rem;
+      margin: 0 auto;
+    }
 	}
+  .study-overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    overflow-y: auto;
+    background: rgba(0,0,0,0.5);
+    box-shadow: 5px 5px 10px rgba(0,0,0,0.8);
+  }
   .form-error-msg {
     margin-left: 5px;
     text-align: left;
@@ -85,6 +113,9 @@ const GlobalStyles = createGlobalStyle`
         align-self: center;
       }
       
+    }
+    @media only screen and (max-width: 450px) {
+      padding: .5rem 1rem;
     }
 	}
   .signup-modal {
@@ -110,15 +141,6 @@ const GlobalStyles = createGlobalStyle`
   }
   .edit-profile-modal {
     height: 590px !important;
-  }
-  .study-overlay {
-    position: fixed;
-    top: 0;
-    left: 0;
-    right: 0;
-    bottom: 0;
-    background: rgba(0,0,0,0.5);
-    box-shadow: 5px 5px 10px rgba(0,0,0,0.8);
   }
   .modal-buttons {
     display: flex;
@@ -285,6 +307,69 @@ const GlobalStyles = createGlobalStyle`
       transform: scaleY(0);
     }
   }
+
+  .alert-ui {
+    background: rgba(255, 255, 255, 0.65);
+    box-shadow: 0 8px 32px 0 rgba(31, 38, 135, 0.37);
+    backdrop-filter: blur(9.5px);
+    -webkit-backdrop-filter: blur(9.5px);
+    border: 1px solid rgba(255, 255, 255, 0.18);
+    padding: 2rem;
+    border-radius: 10px;
+    outline: none;
+
+    &-buttons-row {
+      margin-top: 1rem;
+      display: flex;
+      width: 100%;
+      justify-content: flex-end;
+      height: fit-content;
+      background: none;
+
+      button.alert-cancel{
+        padding: 0.5rem 1rem;
+        background: #777777;
+        margin-bottom: 0.6rem;
+        width: 100px;
+        font-size: 16px;
+        box-shadow: none;
+      }
+      button.alert-cancel:hover {
+        background: #535353;
+      }
+      button.alert-delete {
+        padding: 0.5rem 1rem;
+        background: red;
+        margin-bottom: 0.6rem;
+        width: 100px;
+        cursor: pointer;
+        font-size: 16px;
+        outline: none;
+        border: none;
+        border-radius: 5px;
+        color: white;
+        transition: all 0.3s;
+        box-shadow: 2px 2px 5px rgba(0, 0, 0, 0.4);
+        margin-right: 1rem;
+      }
+      button.alert-delete:hover {
+        background: #c73131;
+      }
+    }
+    &-buttons-row:hover {
+      background: none;
+    }
+  }
+  .react-confirm-alert-overlay {
+    background: rgba(0,0,0,0.5)!important;
+    -webkit-animation: react-confirm-alert-fadeIn 0.2s 0.2s forwards!important;
+    -moz-animation: react-confirm-alert-fadeIn 0.2s 0.2s forwards!important;
+    -o-animation: react-confirm-alert-fadeIn 0.2s 0.2s forwards!important;
+    animation: react-confirm-alert-fadeIn 0.2s 0.2s forwards!important;
+  }
+
+
+
 `;
 
 export default GlobalStyles;

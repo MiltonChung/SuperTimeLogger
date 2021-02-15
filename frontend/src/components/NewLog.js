@@ -68,7 +68,9 @@ const NewLog = ({ userAuth }) => {
 				</div>
 
 				<div className="form-row">
-					<label htmlFor="dur">Duration:*</label>
+					<label htmlFor="dur">
+						Duration: <small>(in minutes)</small>*
+					</label>
 					<input type="number" name="dur" id="dur" min="0" placeholder="...in minutes" />
 					<div className="form-error-msg">{errMsgDur && <small>{errMsgDur}</small>}</div>
 				</div>

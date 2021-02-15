@@ -12,7 +12,8 @@ const Log = ({ userAuth }) => {
 	const [logList, setLogList] = useState({});
 	const [isLoading, setIsLoading] = useState(true);
 	const [updateLog, setUpdateLog] = useState("");
-	const [modalIsOpen, setIsOpen] = useState(false);
+	const [isEditModalOpen, setIsEditModalOpen] = useState(false);
+	const [isDeleteModalOpen, setIsDeleteModalOpen] = useState(false);
 	const [userEdit, setUserEdit] = useState({});
 	const [currLogId, setCurrLogId] = useState();
 	const [currLogIndex, setCurrLogIndex] = useState();
@@ -29,16 +30,17 @@ const Log = ({ userAuth }) => {
 			.catch(error => {
 				console.log(error);
 			});
-	}, [updateLog, userAuth, modalIsOpen]);
+	}, [updateLog, userAuth, isEditModalOpen]);
 
-	function openModal(log) {
-		setIsOpen(true);
+	function openEditModal(log) {
+		setIsEditModalOpen(true);
 		setCurrLogId(log._id);
 		setCurrLogIndex(userEdit?.findIndex(item => item._id === log._id));
 	}
 
 	function closeModal() {
-		setIsOpen(false);
+		setIsEditModalOpen(false);
+		setIsDeleteModalOpen(false);
 	}
 
 	const handleDescription = e => {
@@ -114,11 +116,8 @@ const Log = ({ userAuth }) => {
 			.catch(err => console.log(err));
 	};
 
-	const deleteLog = log => {
-		axios
-			.delete(`${apiURL}/logs/${log._id}`)
-			.then(data => setUpdateLog(data))
-			.catch(err => console.log(err));
+	const openDeleteModal = log => {
+		setIsDeleteModalOpen(true);
 	};
 
 	return (
@@ -134,8 +133,8 @@ const Log = ({ userAuth }) => {
 									<div className="top">
 										<p className="log-date">{DayMonthDate(log.date)}</p>
 										<div className="top-icons">
-											<FontAwesomeIcon icon={faEdit} onClick={() => openModal(log)} />
-											<FontAwesomeIcon icon={faTrash} onClick={() => deleteLog(log)} />
+											<FontAwesomeIcon icon={faEdit} onClick={() => openEditModal(log)} />
+											<FontAwesomeIcon icon={faTrash} onClick={() => openDeleteModal(log)} />
 										</div>
 									</div>
 									<div className="information">
@@ -150,7 +149,7 @@ const Log = ({ userAuth }) => {
 						})}
 
 					<ReactModal
-						isOpen={modalIsOpen}
+						isOpen={isEditModalOpen}
 						onRequestClose={closeModal}
 						contentLabel="Edit Log"
 						className="study-modal edit-log-modal"
@@ -171,7 +170,9 @@ const Log = ({ userAuth }) => {
 							</div>
 
 							<div className="form-row">
-								<label htmlFor="duration">Duration:*</label>
+								<label htmlFor="duration">
+									Duration: <small>(in minutes)</small>*
+								</label>
 								<input
 									type="number"
 									name="duration"
@@ -212,6 +213,34 @@ const Log = ({ userAuth }) => {
 								<button onClick={closeModal}>cancel</button>
 							</div>
 						</StyledForm>
+					</ReactModal>
+
+					<ReactModal
+						isOpen={isDeleteModalOpen}
+						onRequestClose={closeModal}
+						contentLabel="Delete Log"
+						className="study-modal delete-log-modal"
+						overlayClassName="study-overlay">
+						<div className="delete-log-form">
+							<h2>Confirm to delete</h2>
+							<p>{`Are you sure you want to delete the log: ${userEdit[0]?.description}?`}</p>
+							<div className="alert-ui-buttons-row">
+								<button
+									className="alert-delete"
+									onClick={() => {
+										axios
+											.delete(`${apiURL}/logs/${userEdit[0]?._id}`)
+											.then(data => setUpdateLog(data))
+											.catch(err => console.log(err));
+										closeModal();
+									}}>
+									Delete
+								</button>
+								<button className="alert-cancel" onClick={closeModal}>
+									Cancel
+								</button>
+							</div>
+						</div>
 					</ReactModal>
 				</>
 			)}

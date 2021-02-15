@@ -199,7 +199,9 @@ const StyledProfile = styled.div`
 	align-items: center;
 	justify-content: space-between;
 	height: 100%;
+	width: 100%;
 	padding: 1rem 0.5rem;
+	overflow-y: auto;
 
 	.profile-info {
 		display: flex;
@@ -220,8 +222,10 @@ const StyledProfile = styled.div`
 			margin-top: 0.5rem;
 			font-weight: 700;
 			font-size: 34px;
-			line-height: 58px;
+			line-height: 40px;
 			letter-spacing: 0.03em;
+			text-align: center;
+			margin-bottom: 1rem;
 		}
 
 		.short-line {
@@ -238,6 +242,7 @@ const StyledProfile = styled.div`
 			line-height: 20px;
 			letter-spacing: 0.03em;
 			margin-bottom: 0.7rem;
+			text-align: center;
 		}
 
 		p {
@@ -276,6 +281,54 @@ const StyledProfile = styled.div`
 		}
 		.sign-out:hover {
 			background: #c70000;
+		}
+	}
+
+	@media only screen and (max-width: 1100px) {
+		.profile-info {
+			img {
+				width: 150px;
+				height: 150px;
+			}
+		}
+	}
+
+	@media only screen and (max-width: 1000px) {
+		.profile-info {
+			align-items: flex-start;
+			img {
+				width: 130px;
+				height: 130px;
+				align-self: center;
+			}
+
+			h2 {
+				margin-top: 1.5rem;
+				margin-bottom: 1.5rem;
+				font-size: 28px;
+				line-height: 31px;
+				text-align: left;
+			}
+
+			.short-line {
+				width: 50px;
+				background: #333333;
+				margin-bottom: 8px;
+				align-self: flex-start;
+			}
+
+			h3 {
+				font-size: 20px;
+				line-height: 24px;
+				margin-bottom: 1.4rem;
+				text-align: left;
+			}
+
+			p {
+				width: 100%;
+				text-align: left;
+				font-size: 15px;
+			}
 		}
 	}
 `;

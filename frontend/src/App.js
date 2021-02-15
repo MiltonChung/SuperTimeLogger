@@ -88,8 +88,10 @@ const StyledDashboard = styled.div`
 	margin: auto;
 	padding: 2rem;
 	height: 85vh;
+	max-height: 700px;
 	width: 92vw;
-	overflow: hidden;
+	max-width: 1350px;
+	overflow: auto;
 
 	.loader {
 		height: 100%;
@@ -108,6 +110,7 @@ const StyledDashboard = styled.div`
 			flex-direction: column;
 			justify-content: center;
 			align-items: center;
+			margin-right: 1rem;
 		}
 		img {
 			width: 100%;
@@ -132,6 +135,30 @@ const StyledDashboard = styled.div`
 		display: flex;
 		flex-direction: column;
 		padding: 1rem;
+	}
+
+	@media only screen and (max-width: 768px) {
+		height: 95vh;
+		width: 95vw;
+
+		.landing {
+			display: grid;
+			grid-template-columns: unset;
+			grid-template-rows: 1fr 2fr;
+			width: 100%;
+			.userForms {
+				display: flex;
+				flex-direction: column;
+				justify-content: center;
+				align-items: center;
+				margin: 0 0 0.5rem 0;
+			}
+			img {
+				justify-self: center;
+				width: 90%;
+				height: 90%;
+			}
+		}
 	}
 `;
 

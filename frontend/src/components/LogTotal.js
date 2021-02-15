@@ -140,6 +140,7 @@ const StyledTotal = styled.div`
 	align-items: center;
 	margin-top: 1rem;
 	height: 100%;
+	overflow-y: auto;
 
 	img {
 		width: 40%;
@@ -158,10 +159,11 @@ const StyledTotal = styled.div`
 		display: grid;
 		grid-template-columns: 1fr 1fr;
 		justify-items: center;
+		color: white;
 
 		&-category {
 			background: #59afff;
-			box-shadow: inset -3px -3px 10px rgba(18, 54, 131, 0.445);
+			box-shadow: 3px 3px 10px rgba(18, 54, 131, 0.445);
 			border-radius: 15px;
 			padding: 1rem;
 
@@ -192,6 +194,15 @@ const StyledTotal = styled.div`
 			line-height: 20px;
 			font-weight: 400;
 			font-style: italic;
+		}
+	}
+
+	@media only screen and (max-width: 1000px) {
+		.profile-info {
+			img {
+				width: 150px;
+				height: 150px;
+			}
 		}
 	}
 `;
