@@ -262,6 +262,7 @@ const StyledLog = styled.div`
 
 	.log {
 		width: 100%;
+		height: fit-content;
 		display: flex;
 		flex-direction: column;
 		border-radius: 5px;
@@ -329,7 +330,9 @@ const StyledLog = styled.div`
 		min-height: 500px;
 		.log {
 			font-size: 14.5px;
-			min-height: 75px;
+			/* min-height: 75px; */
+			max-height: 150px;
+			height: 100%;
 			.top {
 				padding: 0.4rem 0.5rem;
 				align-items: center;
@@ -340,6 +343,15 @@ const StyledLog = styled.div`
 					}
 					.fa-trash {
 						font-size: 16px;
+					}
+				}
+			}
+			.information {
+				&-left {
+					flex-direction: column;
+					.log-label {
+						width: fit-content;
+						margin-top: 0.4rem;
 					}
 				}
 			}
