@@ -126,6 +126,7 @@ const Profile = ({ userAuth, userInfo, setUserInfo }) => {
 							value={userEdit?.name}
 							onChange={handleName}
 							placeholder="Full Name"
+							autoComplete="off"
 						/>
 					</div>
 
@@ -138,6 +139,7 @@ const Profile = ({ userAuth, userInfo, setUserInfo }) => {
 							value={userEdit?.title}
 							onChange={handleTitle}
 							placeholder="Title"
+							autoComplete="off"
 						/>
 					</div>
 
@@ -153,6 +155,7 @@ const Profile = ({ userAuth, userInfo, setUserInfo }) => {
 							placeholder="Bio"
 							rows="3"
 							maxLength="150"
+							autoComplete="off"
 						/>
 					</div>
 
@@ -165,6 +168,7 @@ const Profile = ({ userAuth, userInfo, setUserInfo }) => {
 							value={userEdit?.email}
 							onChange={handleEmail}
 							placeholder="Email"
+							autoComplete="off"
 						/>
 					</div>
 

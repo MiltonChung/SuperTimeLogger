@@ -65,7 +65,13 @@ const NewLog = ({ userAuth }) => {
 			<form onSubmit={submitForm} ref={formRef}>
 				<div className="form-row">
 					<label htmlFor="descr">Description:*</label>
-					<input type="text" name="descr" id="descr" placeholder="Building a React app" />
+					<input
+						type="text"
+						name="descr"
+						id="descr"
+						placeholder="Building a React app"
+						autoComplete="off"
+					/>
 					<div className="form-error-msg">{errMsgDescr && <small>{errMsgDescr}</small>}</div>
 				</div>
 
@@ -73,13 +79,20 @@ const NewLog = ({ userAuth }) => {
 					<label htmlFor="dur">
 						Duration: <small>(in minutes)</small>*
 					</label>
-					<input type="number" name="dur" id="dur" min="0" placeholder="...in minutes" />
+					<input
+						type="number"
+						name="dur"
+						id="dur"
+						min="0"
+						placeholder="...in minutes"
+						autoComplete="off"
+					/>
 					<div className="form-error-msg">{errMsgDur && <small>{errMsgDur}</small>}</div>
 				</div>
 
 				<div className="form-row">
 					<label htmlFor="label">Label:</label>
-					<input type="text" name="label" id="label" placeholder="Coding" />
+					<input type="text" name="label" id="label" placeholder="Coding" autoComplete="off" />
 				</div>
 
 				<div className="form-row">

@@ -134,7 +134,7 @@ const Signup = ({ userAuth, setUserInfo }) => {
 
 					<div className="form-row">
 						<label htmlFor="name">Name:</label>
-						<input type="text" name="name" id="name" placeholder="Ecma Script" />
+						<input type="text" name="name" id="name" placeholder="Ecma Script" autoComplete="off" />
 					</div>
 
 					<div className="form-row">
@@ -146,12 +146,19 @@ const Signup = ({ userAuth, setUserInfo }) => {
 							placeholder="Helping the world one person at a time."
 							rows="3"
 							maxLength="150"
+							autoComplete="off"
 						/>
 					</div>
 
 					<div className="form-row">
 						<label htmlFor="title">Title:</label>
-						<input type="text" name="title" id="title" placeholder="Frontend Developer" />
+						<input
+							type="text"
+							name="title"
+							id="title"
+							placeholder="Frontend Developer"
+							autoComplete="off"
+						/>
 					</div>
 
 					<div className="form-error-msg">{errMsg && <small>{errMsg}</small>}</div>
