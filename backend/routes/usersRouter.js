@@ -64,43 +64,4 @@ userRouter.route("/update/:id").post((req, res) => {
 		.catch(err => res.status(400).json("outer Error: " + err));
 });
 
-// userRouter.post("/signup", (req, res) => {
-// 	User.register(
-// 		new User({ username: req.body.username, name: req.body.name, bio: req.body.bio, title: req.body.title }),
-// 		req.body.password,
-// 		err => {
-// 			if (err) {
-// 				res.statusCode = 500;
-// 				res.setHeader("Content-Type", "applicatoin/json");
-// 				res.json({ err: err });
-// 			} else {
-// 				passport.authenticate("local")(req, res, () => {
-// 					res.statusCode = 200;
-// 					res.setHeader("Content-Type", "application/json");
-// 					res.json({ success: true, status: "Registration successful!" });
-// 				});
-// 			}
-// 		}
-// 	);
-// });
-
-// userRouter.post("/login", passport.authenticate("local"), (req, res) => {
-// 	const token = authenticate.getToken({ _id: req.user._id });
-// 	res.statusCode = 200;
-// 	res.setHeader("Content-Type", "application/json");
-// 	res.json({ success: true, token: token, status: "You are successfully logged in!" });
-// });
-
-// userRouter.get("/logout", (req, res, next) => {
-// 	if (req.session) {
-// 		req.session.destroy();
-// 		res.clearCookie("session-id");
-// 		res.redirect("/");
-// 	} else {
-// 		const err = new Error("You are not logged in!");
-// 		err.status = 401;
-// 		return next(err);
-// 	}
-// });
-
 module.exports = userRouter;
