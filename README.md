@@ -2,8 +2,6 @@
 
 A full stack website that allows users to log and keep track of their time.
 
-Link: https://supertimelog.netlify.app/
-
 ## Table of contents
 
 -  [About](#about)
